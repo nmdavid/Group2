@@ -3,12 +3,13 @@ from Character import *
 from sys import exit
 from gameparser import *
 from story import *
-import random
+from random import *
+from eventMap import *
 
 ourHero = MainCharacter("Dave", 100, 20, 
                         {"Health Potions" : 1, "Artifacts": 0}, 
                         [Armor("Sailors pants", 1),],
-                        [Weapon("Simple Dagger", 2),])
+                        [Weapon("Simple Dagger", 2), Weapon("Nothing", 1)])
 player_coordinates = [0,0]
 run = True
 #Game logic
@@ -30,12 +31,15 @@ def encounter(difficulty):
     reward = 0
     if difficulty == "easy":
         enemies = ShipOneEnemies
+        loot_table = "ShipOneEnemies"
         reward = 0
     if difficulty == "medium":
         enemies = ShipTwoEnemies
+        loot_table = "ShipTwoEnemies"
         reward = 1
     if difficulty == "hard":
         enemies = ShipThreeEnemies
+        loot_table = "ShipThreeEnemies"
         reward = 2
     enemy = enemies[random.randint(0,1)]
     while True:
@@ -68,20 +72,22 @@ def encounter(difficulty):
         if enemy.health <= 0:
             print("\nYou defeated the "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
-            battleEnded()
+            battleEnded(Loot_table[loot_table])
             break
         enemy_damage = ourHero.takeDamage(enemy.doDamage())
         ourHero.health -= enemy_damage
         print("\nYou were hit for "+str(enemy_damage)+" damage.")          
 
-def battleEnded():
+def battleEnded(current_ship):
     newWeapon = current_ship["weaponloot"]
     if newWeapon:
         if len(ourHero.weapons) > 1:
-            if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1]:
+            if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1].damage:
                 ourHero.weapons[1] = newWeapon
-            elif newWeapon.damage > ourHero.weapons[0]:
+                print("You got a new weapon, a "+newWeapon.name+"!")
+            elif newWeapon.damage > ourHero.weapons[0].damage:
                 ourHero.weapons[0] = newWeapon
+                print("You got a new weapon, a "+newWeapon.name+"!")
         else:
             ourHero.weapons[1] = newWeapon
    
@@ -239,6 +245,7 @@ def mainGameLoop():
         overWorld()
         if player_coordinates != oldCoordinates:
             enterZone()
+        input("Press Enter to continue.")
 
 def overWorld():
     global player_coordinates
@@ -268,6 +275,7 @@ def overWorld():
             displayMessage(ourHero.printHealth())
     elif player_input[0] == "go":
         player_coordinates = move_player(player_input[1], player_coordinates)
+        event_checker(player_coordinates, event_map)
     elif player_input[0] == "exit":
         run = False
 
@@ -284,5 +292,88 @@ def rollCredits():
 def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
+
+def event_checker(current_position, event_map):
+    if event_map[current_position[1]][current_position[0]] == 1:
+        fight_event()
+    elif event_map[current_position[1]][current_position[0]] == 2:
+        riddle()
+    elif event_map[current_position[1]][current_position[0]] == 3:
+        environment_event()
+
+def fight_event():
+    check = random.randint(1, 3)
+    if check == 1:
+        encounter("easy")
+    elif check == 2:
+        encounter("medium")
+    else:
+        encounter("hard")
+
+def riddle_event():
+    riddle()
+
+# Maybe add some actual affects of the environmental events? like loss of item, etc.
+def environment_event():
+    check = random.randint(1, 5)
+    if check == 1:
+        a = """
+        A fin breaks the surface of the water infront of you,
+        rising higher and higher out of the water the creature's immense
+        size becomes quickly apparent as the jaws of a huge shark emerges
+        opening wide, revealing row after row of sharp, jagged teeth.
+        Just as it is about to reach your ship, it is dragged underneath.
+        blood rises to the surface and a booming noise comes from below,
+        deafening you completely.
+        """
+        print(a)
+    elif check == 2:
+        a = """
+        Sharp scraping from underneath the deck wakes you from a daydream.
+        you see the approaching water is somewhat darker then usual in spots.
+        As you move over another dark spot you see it is a sharp crag of rock
+        underneath the boat... you are moving into shallows.. in the middle of
+        the ocean. You scramble to change course as each second here risks
+        total destruction of the boat. Narrowly you escape from the field with
+        nothing more than a small amount of damage on the underside of your ship.
+        """
+        print(a)
+    elif check == 3:
+        a = """
+        Not too far in the distance you spot a tiny island, home to a single palm
+        tree, just creeping on the horizon. You change course to investigate.
+        As you pull up aside, you jump into the clear water, swimming onto the speck of
+        land. Propped up against the tree is a skeleton. sun-bleached and picked clean,
+        its white bones sit aside a dulled sword and a small book. You pick up the book,
+        a few large gold coins falling from between the pages. "The Wolf Queen, v1". You
+        open to the first page, but drop it as you feel a shocking sensation run through
+        your body. Your hands feel more nimble all of a sudden.
+        """
+        print(a)
+    elif check == 4:
+        a = """
+        You notice the water turns a shade of green as you pass over what must be a kelp
+        field. looking deeper into the murky water, you spot something glimmering in the
+        harsh light of the midday sun, entwined in a cluster of kelp leaves, not so far
+        from the surface of the water. Taking a deep breath, you dive in, knife in hand
+        and cut away the foliage from the wrapped, gilded box. you haul it back onto your
+        ship, a suspicious noise coming from inside. the lock is intricately designed
+        and without a key, and a regular noise is emenating from within. Almost like a
+        beating drum. You store it, and continue.
+        """
+        print(a)
+    elif check == 5:
+        a = """
+        The crack of cannon-fire alerts you from behind. As you turn to observe you see
+        two grand galleons exchanging shots with one another several leagues away from
+        your vessel. Still the sound reverberates through the empty air, carried by the
+        ocean wind. despite the distance, you still see the tiny figures that are the
+        crewmates swinging from each ship to the other in a competiion to defeat the other.
+        You decide to speed up and get away from the confrontation, the ocean is a
+        dangerous place for anyone to sail alone.
+        """
+        print(a)
+    
+
 
 main()
