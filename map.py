@@ -20,14 +20,26 @@ ShipTwoDictionary = {
     "name": "The ship of death",
     "Enemies": ShipTwoEnemies,
     "Gold": 300,
-    "description": "This ship cooler tho"
+    "description": "This ship cooler tho",
+    "weaponloot": Weapon("Flintlock pistol", 5)
 }
 
 ShipThreeEnemies = [SimpleEnemy("Angry Pirate", 35, 10), SimpleEnemy("Very Angry Pirate", 45, 12)]
-
+ShipThreeDictionary = {
+    "name": "The ship of death",
+    "Enemies": ShipThreeEnemies,
+    "Gold": 300,
+    "description": "This ship cooler tho",
+    "weaponloot": Weapon("Pointy stick", 3)
+}
 #List of rooms
 Ships = [
     ShipOneDictionary,
     ShipTwoDictionary
 ]
+
+Loot_table = {"ShipOneEnemies": ShipOneDictionary,
+              "ShipTwoEnemies": ShipTwoDictionary,
+              "ShipThreeEnemies": ShipThreeDictionary
+              }
 
