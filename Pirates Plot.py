@@ -1,10 +1,10 @@
 '''
-~~~~ The Pirates of the approximate Atlantic and the curse of the ancient artifacts ~~~~
+~~~~ The Pirates of the approximate Atlantic and the curse of the ancient artefacts ~~~~
 
 You play as an escaped pirate's slave, who uncovers a letter from the legendary Pirate
-Hack Sparrow himself, detailing the existance of six ancient, invaluable artifacts
-whcih all guide one to the decades old horde of treasure belonging to Hack himself. You
-adventure out alone on yoru single-man sailing vessel to uncover these written secrets.
+Hack Sparrow himself, detailing the existence of six ancient, invaluable artefacts
+which all guide one to the decades old horde of treasure belonging to Hack himself. You
+adventure out alone on your single-man sailing vessel to uncover these written secrets.
 
 Waking up on the shore of a lonely island, you barely retain the memories of your escape
 from the cruel pirate prison. As you look to your new surroundings, you see the
@@ -19,14 +19,14 @@ battered parchment falls from his pocket. you uncork the bottle and read the let
     \                                                                  |
     |    For ye who follow,                                            |
     |                                                                  |
-    |    I be dead now, which means i must pass my legacy to           |
+    |    I be dead now, which means I must pass my legacy to           |
     |    another who shall retain the objects better than I.           |
-    |    Far across the crystal waves scattered are artifacts          |
+    |    Far across the crystal waves scattered are artefacts          |
     |    of no one price. These six objects shall lead ye to         /
     |    the final pass where the treasure I horded over decades      |
     /    shall lay waiting for the arrival of one worthy. Go.         |
     |    Claim what belongs to the oceans now, but be wary. This      |
-    |    is no task for a yellow bellied bilge rat.                   |
+    |    is no task for a yellow-bellied bilge rat.                   |
     \                                                                 |
      |   Farewell and good fortune,                                   /
      |   Hack Narrow                                                 /
@@ -37,43 +37,43 @@ battered parchment falls from his pocket. you uncork the bottle and read the let
     \____/______________________________________________________________/
 
 
-Artifact 1 - (an enscribed golden coin) It's an old gold coin. Very old, and solid gold...
-it's value has no number that is for sure. The enscribed picture is (enter location
-clue for next artifact)
+Artefact 1 - (an inscribed golden coin) It's an old gold coin. Very old, and solid gold...
+its value has no number that is for sure. The inscribed picture is (enter location
+clue for next artefact)
 
-Artifact 2 - (An ancient greek pot) This pot details the story of perseus and medusa, an
+Artefact 2 - (An ancient Greek pot) This pot details the story of Perseus and medusa, an
 old Ancient Greek mythological story. On the bottom is a ragged engraving, much newer in
-age. (enter location of next artifact)
+age. (enter location of next artefact)
 
-Artifact 3 - (A theatherbound sailors Journal) This is a navigator's rutter. A logbook of
-directions, locations, maps and most imporantly, directions to specific areas of the deadly
-ocean. (contains directions to artifact 4)
+Artefact 3 - (A theatherbound sailors Journal) This is a navigator's rutter. A logbook of
+directions, locations, maps and most importantly, directions to specific areas of the deadly
+ocean. (contains directions to artefact 4)
 
-Artifact 4 - (A standard battered flintlock pistol) This pistol is common amongst pirates and
+Artefact 4 - (A standard battered flintlock pistol) This pistol is common amongst pirates and
 lawmen alike, containing a single shot. Seeing the unique leather wrapped handle reminds you
 of the owner, a friend from a life almost forgotten living in (enter location).
 
-Artifact 5 - (A silver ring) When you travel to find the old friend whose pistol you found,
-you discover he has retired to become a simple shopkeep, who claims to know Hack Narrow,
+Artefact 5 - (A silver ring) When you travel to find the old friend whose pistol you found,
+you discover he has retired to become a simple shop keep, who claims to know Hack Narrow,
 or at least he did... a long time ago. He gives you a silver ring for your travels. On the
-inside are inscribed co-ordinates (to the next artifact).
+inside are inscribed co-ordinates (to the next artefact).
 
-Artifact 6 - The final artifact is held in a small museum in a quiet harbor town. You go
+Artefact 6 - The final artefact is held in a small museum in a quiet harbour town. You go
 inside, and instantly one modest exhibit catches your eye. It is the figurehead piece of
 the famed ship, Silver Sword. It is a solid silver model of a swordfish, with huge
 polished rubies for eyes. The item itself is immensely valuable, held behind thick glass
-and guarded by two armed men. It seems somwhat out of place. You read the plaque infront
+and guarded by two armed men. It seems somewhat out of place. You read the plaque in front
 of the exhibit. "The silver figurehead of the famed ship belonged to wealthy Spanish
 businessman Carlos Buendia... of course before it was stolen from him by the enigmatic
 band of pirates known as the black mist, and handed as a prize to their captain and leader
-Garton 'No-Tongue' Crawford. It remained in his possesion until death until it was passed
+Garton 'No-Tongue' Crawford. It remained in his possession until death until it was passed
 into the possession of his equally infamous but outcast son, Hack Narrow. It was in his
 period of possession where the ship was disassembled, the parts used to create some kind
 of storage room at a secret location, save this figurehead, donated to this museum."
 Shouting comes from outside the building, growing louder and louder until silenced with
 the crack of gunfire. The guards rush out to investigate. You remove your acquired pistol
 from your jacket pocket, and use the single shot to shatter the glass surrounding the
-figurehead. Apparently unnoticed due to the outisde disturbance, you carefully remove the
+figurehead. Apparently unnoticed due to the outside disturbance, you carefully remove the
 left ruby eye of the figurehead and search for an exit through the back of the museum. As
 you walk away, you hear a group of men discussing something as they shuffle past the limp
 bodies of the guards into the museum.
