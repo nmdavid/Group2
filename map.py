@@ -27,7 +27,7 @@ ShipOneDictionary = {
 }
 
 
-ShipTwoEnemies = [SimpleEnemy("Spooky Scary Sceleton", 5, 20), SimpleEnemy("Cool Cat", 7, 10)]
+ShipTwoEnemies = [SimpleEnemy("Spooky Scary Skeleton", 5, 20), SimpleEnemy("Cool Cat", 7, 10)]
 
 ShipTwoDictionary = {
     "name": "The ship of death",
@@ -36,10 +36,11 @@ ShipTwoDictionary = {
     "description": "This ship cooler tho"
 }
 
+ShipThreeEnemies = [SimpleEnemy("Angry Pirate", 35, 10), SimpleEnemy("Very Angry Pirate", 45, 12)]
+
 #List of rooms
 Ships = [
     ShipOneDictionary,
     ShipTwoDictionary
 ]
-
 
