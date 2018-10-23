@@ -2,12 +2,14 @@ from map import *
 from Character import *
 from sys import exit
 from gameparser import *
+from story import *
 
-ourHero = MainCharacter("Dave", 100, 20, {"Health Potions" : 3, "Gold": 7}, 
-                        [Armor("Sailors pants", 5)],
-                        [Weapon("Simple Dagger", 5)])
+ourHero = MainCharacter("Dave", 100, 20, 
+                        {"Health Potions" : 1, "Artifacts": 0}, 
+                        [Armor("Sailors pants", 1),],
+                        [Weapon("Simple Dagger", 2),])
 player_coordinates = [0,0]
-
+run = True
 #Game logic
 def player_change_location():
     print("Available ships:")
@@ -52,14 +54,10 @@ def move_player(direction, user_coordinates):
 ## main game loop
 def main():
     startMenu()
-    current_ship = player_change_location()
-    print(current_ship["description"])
-    battlePhase(current_ship["Enemies"])
-        
+       
 
 def startMenu():
-    run = True
-
+    global run
     while(run == True):
         print("########################################")
         print("|      Pirates of the Dark Seas        |")
@@ -82,21 +80,57 @@ def startMenu():
             rollCredits()
         elif choice == "exit":
             print("\nThank you for playing!")
-            sys.exit()
+            run = False
 
 
 def startGame():
+    printIntro()
+    mainGameLoop()
+
+def mainGameLoop():
     global player_coordinates # I'll make this more elegant later
-    while True:
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-        print_map(player_coordinates)
-        print("You can:\nGO NORTH/SOUTH/EAST/WEST\nCHECK INVENTORY\n")
-        player_input = input("What would you like to do?\n>")
-        player_input = normalise_input(player_input)
-        if player_input[0] == "check" and player_input[1] == "inventory":
-            ourHero.printInventory()
-        elif player_input[0] == "go":
-            player_coordinates = move_player(player_input[1], player_coordinates)
+    global run
+    while run:
+        oldCoordinates = player_coordinates
+        overWorld()
+        if player_coordinates != oldCoordinates:
+            enterZone()
+
+def overWorld():
+    global player_coordinates
+    global run
+    global ourHero
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print_map(player_coordinates)
+
+    directions = ""
+    if(player_coordinates[1] > 0): directions += "north, "
+    if(player_coordinates[0] > 0): directions += "west, "
+    if(player_coordinates[1] < 9): directions += "south, "
+    if(player_coordinates[0] < 9): directions += "east, "
+ 
+    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Exit\n" % directions)
+    player_input = input("What would you like to do?\n>")
+    player_input = normalise_input(player_input)
+
+    if player_input[0] == "check" and len(player_input) > 1:
+        if player_input[1] == "inventory":
+            displayMessage(ourHero.printInventory())
+        elif player_input[1] == "gear":
+            displayMessage(ourHero.printGear())
+        elif player_input[1] == "weapons":
+            displayMessage(ourHero.printWeapon())
+    elif player_input[0] == "go":
+        player_coordinates = move_player(player_input[1], player_coordinates)
+    elif player_input[0] == "exit":
+        run = False
+
+def enterZone():
+    global player_coordinates
+
+def displayMessage(text):
+    print(text)
+    input("Enter anything to return to previous menu")
 
 def rollCredits():
     print("Game created by:")
@@ -104,4 +138,5 @@ def rollCredits():
 def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
+
 main()
