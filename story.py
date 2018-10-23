@@ -27,11 +27,11 @@ battered parchment falls from his pocket. you uncork the bottle and read the let
 
     |                                                                  |
 
-    |    I be dead now, which means i must pass my legacy to           |
+    |    I be dead now, which means I must pass my legacy to           |
 
     |    another who shall retain the objects better than I.           |
 
-    |    Far across the crystal waves scattered are artifacts          |
+    |    Far across the crystal waves scattered are artefacts          |
 
     |    of no one price. These six objects shall lead ye to         /
 
@@ -41,7 +41,7 @@ battered parchment falls from his pocket. you uncork the bottle and read the let
 
     |    Claim what belongs to the oceans now, but be wary. This      |
 
-    |    is no task for a yellow bellied bilge rat.                   |
+    |    is no task for a yellow-bellied bilge rat.                   |
 
     \                                                                 |
 
