@@ -1,5 +1,6 @@
+#gameparser.py
 import string
-legal_words = ["go", "attack", "take", "drop", "south", "north", "east", "west", "exit", "credits", "start", "check", "inventory"]
+legal_words = ["go", "attack", "take", "drop", "south", "north", "east", "west", "exit", "credits", "start", "check", "inventory", "gear", "weapons"]
 
 def filter_words(words, legal_words):
     filtered_words = []
@@ -39,4 +40,4 @@ def normalise_input(user_input):
     no_punct_and_whitespace = remove_spaces(no_punct)
     word_list = no_punct_and_whitespace.split()
     word_list = filter_words(word_list, legal_words)
-    return word_list    
+    return word_list 
