@@ -109,7 +109,7 @@ def overWorld():
     if(player_coordinates[1] < 9): directions += "south, "
     if(player_coordinates[0] < 9): directions += "east, "
  
-    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Exit\n" % directions)
+    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Exit\n" % directions)
     player_input = input("What would you like to do?\n>")
     player_input = normalise_input(player_input)
 
@@ -120,6 +120,8 @@ def overWorld():
             displayMessage(ourHero.printGear())
         elif player_input[1] == "weapons":
             displayMessage(ourHero.printWeapon())
+        elif player_input[1] == "health":
+            displayMessage(ourHero.printHealth())
     elif player_input[0] == "go":
         player_coordinates = move_player(player_input[1], player_coordinates)
     elif player_input[0] == "exit":
