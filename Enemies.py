@@ -10,4 +10,4 @@ class SimpleEnemy:
         self.health -= amount
 
     def doDamage(self):
-        return randrange (0, self.damage)
+        return randrange(0, self.damage)

@@ -24,8 +24,67 @@ def player_change_location():
             return current_ship
 
 
-def encounter():
-    print("Meh")
+def encounter(difficulty):
+    global ourHero
+    enemies = []
+    reward = 0
+    if difficulty == "easy":
+        enemies = ShipOneEnemies
+        reward = 0
+    if difficulty == "medium":
+        enemies = ShipTwoEnemies
+        reward = 1
+    if difficulty == "hard":
+        enemies = ShipThreeEnemies
+        reward = 2
+    enemy = enemies[random.randint(0,1)]
+    while True:
+        print("\nYou are fighting a "+enemy.name)
+        print("You have "+str(ourHero.health)+" HP.")
+        print("The "+enemy.name+" has "+str(enemy.health)+" HP.")
+        choice = input("You can:\nFight\nHeal\nWhat do you want to do?\n>")
+        if choice == "heal" and ourHero.inventory["Health Potions"] > 0:
+            ourHero.inventory["Health Potions"] -= 1
+            ourHero.health += 50
+            if ourHero.health >= 100:
+                ourHero.health = 100
+            print("\nYou drank a healing potion.")
+        elif choice == "fight":
+            crit = random.randint(1,20)
+            damage = ourHero.doDamage()
+            if crit == 0:
+                print("You missed!")
+            elif crit != 0 and crit != 20:
+                enemy.health -= damage
+                print("\nYou hit the "+enemy.name+" for "+str(damage)+" damage.")
+            elif crit == 20:
+                enemy.health -= (damage*2)
+                print("\nYou hit the "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
+        else:
+            print("\nYou can't do that now.")
+        if ourHero.health <= 0:
+            print("\nYou died! The treasure will stay hidden forever...")
+            sys.exit()
+        if enemy.health <= 0:
+            print("\nYou defeated the "+enemy.name+"!")
+            ourHero.inventory["Health Potions"] += reward
+            battleEnded()
+            break
+        enemy_damage = ourHero.takeDamage(enemy.doDamage())
+        ourHero.health -= enemy_damage
+        print("\nYou were hit for "+str(enemy_damage)+" damage.")          
+
+def battleEnded():
+    newWeapon = current_ship["weaponloot"]
+    if newWeapon:
+        if len(ourHero.weapons) > 1:
+            if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1]:
+                ourHero.weapons[1] = newWeapon
+            elif newWeapon.damage > ourHero.weapons[0]:
+                ourHero.weapons[0] = newWeapon
+        else:
+            ourHero.weapons[1] = newWeapon
+   
 
 def print_map(user_coordinates):
     grid = [["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"]]
@@ -229,16 +288,4 @@ def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
 
-#do this when battle has ended:
-def battleEnded():
-    newWeapon = current_ship["weaponloot"]
-    if newWeapon:
-        if len(ourHero.weapons) > 1:
-            if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1]:
-                ourHero.weapons[1] = newWeapon
-            elif newWeapon.damage > ourHero.weapons[0]:
-                ourHero.weapons[0] = newWeapon
-        else:
-            ourHero.weapons[1] = newWeapon
-        
 main()

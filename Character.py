@@ -1,4 +1,5 @@
 from random import randrange
+from random import randint
 class MainCharacter:
     def __init__(self, name, health, damage, inventory, armor, weapons):
         self.name = name
@@ -28,13 +29,16 @@ class MainCharacter:
         return returnValue
 
     def doDamage(self):
-        damage = self.damage
+        damage = random.randint(1,self.damage)
         for w in self.weapons:
             damage = damage * w.damage
+        return damage
 
     def takeDamage(self, amount):
+        amount = int(amount)
         for g in self.armor:
-            amount = amount * g.armor
+            amount = amount / g.armor
+        return int(amount)
 
     def printHealth(self):
         print("You are alive, you have: \n")
