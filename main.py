@@ -266,9 +266,6 @@ def overWorld():
             displayMessage(ourHero.printWeapon())
         elif player_input[1] == "health":
             displayMessage(ourHero.printHealth())
-    elif player_input[0] == "drink" and len(player_input) > 1:
-        if player_input[1] == "potion":
-            displayMessage(ourHero.consumePotion())
     elif player_input[0] == "go":
         player_coordinates = move_player(player_input[1], player_coordinates)
     elif player_input[0] == "exit":

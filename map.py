@@ -2,21 +2,6 @@ from random import randrange
 from Enemies import *
 from Character import *
 
-CharacterInventory = {
-    "Sword":1,
-    "Shield":2,
-    "Gold": 0,
-    "HealthPotion":3
-}
-CharacterDictionary = {
-    "Name": "Dave the Conqueror",
-    "MaxHealth": 100,
-    "CurrentHealth": 100,
-    "Strength": 5,
-    "Armor": 10,
-    "Inventory": CharacterInventory
-}
-
 
 #Ships and enemies
 ShipOneEnemies = [SimpleEnemy("Deadly Rabbit", 20, 5), SimpleEnemy("Ferocious Rat", 10, 15)]

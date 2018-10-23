@@ -1,6 +1,5 @@
 #gameparser.py
 import string
-<<<<<<< HEAD
 legal_words = ["go", "attack", "take", "drop", "south", "north", "east", "west", "exit", "credits", "start", "check", "inventory", "gear", "weapons","health","heal","fight", "drink", "potion"]
 
 
