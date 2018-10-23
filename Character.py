@@ -29,7 +29,7 @@ class MainCharacter:
         return returnValue
 
     def doDamage(self):
-        damage = random.randint(1,self.damage)
+        damage = randint(1,self.damage)
         for w in self.weapons:
             damage = damage * w.damage
         return damage
