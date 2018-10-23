@@ -3,6 +3,7 @@ from Character import *
 from sys import exit
 from gameparser import *
 from story import *
+import random
 
 ourHero = MainCharacter("Dave", 100, 20, 
                         {"Health Potions" : 1, "Artifacts": 0}, 
@@ -49,7 +50,87 @@ def move_player(direction, user_coordinates):
         return user_coordinates
     else:
         print("Cannot sail that way.\n")
-    
+
+def riddle():
+    riddles = {"With one simple action, how do you make a pirate angry?": [1, "Take the p away", "Kill his parrot", "Throw water at him", "Steal his treasure"],
+               "A pirate ransacks a village, but their treasure chest is locked. The pirate demands the code for the combination lock, the mayor says that the code is random everyday and if anyone in the village is hurt then he will never get the code. The pirate guesses the code – how?": [3,"He smashes the lock", "The code was 0000", "The code was random","The code was 1234"],
+               "A pirate should always have a tip-top compass, but this pirates has been weather worn by the salty sea air, and now only shows the norm. What does it show?": [3, "N", "Nothing", "N, E, S, W", "N, NE, E, SE, S, SW, W, NW"],
+               "After crossing a magical island, a pirate reaches the ancient tomb where the guardian ghost tells him that there are three passages to take through the cave to reach the treasure at the other end. The first passage has cannons in the walls that will fire randomly, the second passage has trained ancient warrior guards and the third has lions who haven’t eaten for 2 years. Which passage should the pirate take?": [3,"1","2","3","None of them"],
+               "A pirate needs it when they throw it away, but brings it back when they don’t. What is it?": [3,"A ship", "The sea", "An anchor", "A parrot"],
+               "Pirates sail the world going from island to island, and continent to continent. Australia is the world’s largest island – but before it was discovered what was the largest island in the world?": [4, "Madagascar", "Jamaica", "Great Britain", "Australia"],
+               "A pirate shoots her parrot, then holds the parrot under water for 5 minutes. Later she feeds her parrot a cracker and they stare out across the sea together. How?": [4, "It was all a dream", "She has two parrots", "She fed a dead parrot and then held up its body", "The pirate took a picture of the parrot and developed it"],
+               "Roger’s pirate father has three sons: Bluebeard, Greybeard and ...?": [3, "Kirill", "Blackbeard", "Roger", "Redbeard"],
+               "What four letter starts with wind?": [1,"Ship", "Wind", "Seas", "Coin"],
+               "A pirate just left her favourite rum shack in Barbados, but she left something behind. She does however always have this something too. What did she leave?": [4, "Money", "Alcoholism", "Rum", "Fingerprints"]
+               }
+    riddle_select = random.randint(0,9)
+    riddle = list(riddles.keys())[riddle_select]
+    answers = list(riddles.values())[riddle_select]
+    answer = answers[0]
+    attempts = 0
+    while attempts < 3:
+        print("\n"+riddle)
+        print("\nA: "+answers[1]+"\nB: "+answers[2]+"\nC: "+answers[3]+"\nD: "+answers[4])
+        print("\nYou have "+str(3-attempts)+" attempts left.\n")
+        player_answer = input(">")
+        player_answer = normalise_answer(player_answer)
+        if player_answer[0] == "a" and answer == 1:
+            print("Correct!")
+            return True
+        elif player_answer[0] == "b" and answer == 2:
+            print("Correct!")
+            return True
+        elif player_answer[0] == "c" and answer == 3:
+            print("Correct!")
+            return True
+        elif player_answer[0] == "d" and answer == 4:
+            print("Correct!")
+            return True
+        else:
+            print("Incorrect.")
+            attempts += 1
+    print("You got the riddle wrong!")
+    return False
+
+def printIntro():
+    print("""\n\n\n\n\nWaking up on the shore of a lonely island, you barely retain the memories of your escape
+from the cruel pirate prison. As you look to your new surroundings, you see the
+lifeless bodies of two of your companions. Mourning their loss, you decide to give them a
+true burial. As you drag one body through the sand a bottle containing some
+battered parchment falls from his pocket. you uncork the bottle and read the letter inside.
+    _____                                                          ______
+   /     \________________________________________________________/      \
+  / \                                                                     \
+  |  |                                                                    |
+   \ /___________________________________________________________________/
+    \                                                                  |
+    |    For ye who follow,                                            |
+    |                                                                  |
+    |    I be dead now, which means I must pass my legacy to           |
+    |    another who shall retain the objects better than I.           |
+    |    Far across the crystal waves scattered are artefacts          |
+    |    of no one price. These six objects shall lead ye to         /
+    |    the final pass where the treasure I horded over decades      |
+    /    shall lay waiting for the arrival of one worthy. Go.         |
+    |    Claim what belongs to the oceans now, but be wary. This      |
+    |    is no task for a yellow-bellied bilge rat.                   |
+    \                                                                 |
+     |   Farewell and good fortune,                                   /
+     |   Hack Narrow                                                 /
+    /                                                               |
+   /  ____ _____________________________________________________________                                                       
+   | /    \                                                             \
+   \ \__  |                                                              |
+    \____/______________________________________________________________/
+
+
+You find a small sailing vessel abandoned on the beach, and set out to find the artefacts that the scroll mentions.
+    """)
+    input("Press Enter to continue.")
+                                                                                       
+
+                                                        
+
     
 ## main game loop
 def main():
@@ -60,13 +141,17 @@ def startMenu():
     global run
     while(run == True):
         print("########################################")
-        print("|      Pirates of the Dark Seas        |")
+        print("|                                      |")
+        print("|    The Pirates of the Approximate    |")
+        print("|    Atlantic and The Curse of The     |")
+        print("|          Ancient Artefacts           |")
+        print("|                                      |")
         print("#======================================#")
-        print("|            Main Menu:                |")
+        print("|             Main Menu:               |")
         print("#--------------------------------------#")
-        print("|              Start                   |")
-        print("|             Credits                  |")
-        print("|              Exit                    |")
+        print("|               Start                  |")
+        print("|              Credits                 |")
+        print("|               Exit                   |")
         print("#======================================#")
         print("Please enter your choice:")
 
@@ -88,7 +173,7 @@ def startGame():
     mainGameLoop()
 
 def mainGameLoop():
-    global player_coordinates # I'll make this more elegant later
+    global player_coordinates
     global run
     while run:
         oldCoordinates = player_coordinates
@@ -140,5 +225,5 @@ def rollCredits():
 def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
-
+        
 main()
