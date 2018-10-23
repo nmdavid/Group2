@@ -36,6 +36,10 @@ class MainCharacter:
         for g in self.armor:
             amount = amount * g.armor
 
+    def printHealth(self):
+        print("You are alive, you have: \n")
+        return str(self.health) + " health"
+
 class Weapon:
     def __init__(self, name, damage):
         self.name = name
