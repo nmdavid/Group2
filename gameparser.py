@@ -40,4 +40,10 @@ def normalise_input(user_input):
     no_punct_and_whitespace = remove_spaces(no_punct)
     word_list = no_punct_and_whitespace.split()
     word_list = filter_words(word_list, legal_words)
-    return word_list 
+    return word_list
+
+def normalise_answer(user_input):
+    no_punct = remove_punct(user_input).lower()
+    no_punct_and_whitespace = remove_spaces(no_punct)
+    word_list = no_punct_and_whitespace.split()
+    return word_list
