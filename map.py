@@ -1,5 +1,6 @@
 from random import randrange
 from Enemies import *
+from Character import *
 
 CharacterInventory = {
     "Sword":1,
