@@ -1,6 +1,6 @@
 #gameparser.py
 import string
-legal_words = ["go", "attack", "take", "drop", "south", "north", "east", "west", "exit", "credits", "start", "check", "inventory", "gear", "weapons","health"]
+legal_words = ["go", "attack", "take", "drop", "south", "north", "east", "west", "exit", "credits", "start", "check", "inventory", "gear", "weapons","health","heal","fight"]
 
 def filter_words(words, legal_words):
     filtered_words = []
