@@ -23,7 +23,8 @@ ShipOneDictionary = {
     "name": "Madman",
     "Enemies": ShipOneEnemies,
     "Gold": 100,
-    "description": "A very cool ship" 
+    "description": "A very cool ship",
+    "weaponloot" : Weapon("Biggie", 1000000)
 }
 
 

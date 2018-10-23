@@ -68,12 +68,23 @@ def encounter(difficulty):
         if enemy.health <= 0:
             print("\nYou defeated the "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
+            battleEnded()
             break
         enemy_damage = ourHero.takeDamage(enemy.doDamage())
         ourHero.health -= enemy_damage
         print("\nYou were hit for "+str(enemy_damage)+" damage.")          
-            
-        
+
+def battleEnded():
+    newWeapon = current_ship["weaponloot"]
+    if newWeapon:
+        if len(ourHero.weapons) > 1:
+            if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1]:
+                ourHero.weapons[1] = newWeapon
+            elif newWeapon.damage > ourHero.weapons[0]:
+                ourHero.weapons[0] = newWeapon
+        else:
+            ourHero.weapons[1] = newWeapon
+   
 
 def print_map(user_coordinates):
     grid = [["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"],["~","~","~","~","~","~","~","~","~","~"]]
@@ -242,7 +253,7 @@ def overWorld():
     if(player_coordinates[1] < 9): directions += "south, "
     if(player_coordinates[0] < 9): directions += "east, "
  
-    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Exit\n" % directions)
+    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Drink potion\n-Exit\n" % directions)
     player_input = input("What would you like to do?\n>")
     player_input = normalise_input(player_input)
 
@@ -255,6 +266,9 @@ def overWorld():
             displayMessage(ourHero.printWeapon())
         elif player_input[1] == "health":
             displayMessage(ourHero.printHealth())
+    elif player_input[0] == "drink" and len(player_input) > 1:
+        if player_input[1] == "potion":
+            displayMessage(ourHero.consumePotion())
     elif player_input[0] == "go":
         player_coordinates = move_player(player_input[1], player_coordinates)
     elif player_input[0] == "exit":
@@ -274,7 +288,4 @@ def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
 
-encounter("easy")
-encounter("medium")
-encounter("hard")
 main()

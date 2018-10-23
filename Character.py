@@ -44,6 +44,15 @@ class MainCharacter:
         print("You are alive, you have: \n")
         return str(self.health) + " health"
 
+    def consumePotion(self):
+        if self.inventory["Health Potions"] >= 1:
+            self.health += 30
+            self.inventory["Health Potions"] -= 1
+            return "Consumed potion! Health is now: " + str(self.health)
+        else:
+            return "No potions left!"
+        
+
 class Weapon:
     def __init__(self, name, damage):
         self.name = name
