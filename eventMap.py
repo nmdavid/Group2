@@ -1,5 +1,5 @@
 import random
-
+                    #This 2D array is used to cause events as the player moves around the world. A 1 is a battle, a 2 is a riddle, a 3 is an event, 4 is the second artefact, 5 is the fourth, 6 is the fifth and 7 is the final artefact.
 event_map = [
     [0, 1, 0, 0, 2, 0, 0, 0, 7, 4],
     [0, 0, 3, 0, 0, 0, 3, 0, 3, 1],
@@ -11,13 +11,13 @@ event_map = [
     [0, 0, 0, 0, 0, 0, 3, 1, 0, 0],
     [0, 0, 0, 0, 2, 0, 0, 0, 3, 0],
     [1, 0, 5, 0, 0, 2, 0, 2, 0, 1],
-]
+]                                               #This list is used to provide the player with a hint when they successfully solve a riddle
 hintlist = ["\nMaybe gathering some pirate's loot would give you somewhere to start...\n",
             "\nCould that 'NE' be a direction...?\n",
-            "\nThe Jolly Roger? That's the symbol of a pirate...\n",
+            "\nThe Jolly Roger? That's the symbol of a pirate! Perhaps killing a pirate will provide you with this treasure...\n",
             "\nThe island has to be somewhere on the southern edge of mapped ocean...\n",
             "\nTortuga... If your sense of direction serves you right, it's a few leagues south of the island you washed up on.\n",
-            "\nThe harbour town your friend spoke of was west of where you found the pot...\n",
+            "\nThe harbour town your friend spoke of was west of where you found the pot in the north-east...\n",
             "\nMaybe the ghost of Hack Narrow can be found somewhere on these seas...\n"]
 # Print out grid below in grid pattern, row by row
 #for row in event_map:

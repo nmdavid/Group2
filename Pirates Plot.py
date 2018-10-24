@@ -2,7 +2,7 @@
 ~~~~ The Pirates of the approximate Atlantic and the curse of the ancient artefacts ~~~~
 
 You play as an escaped pirate's slave, who uncovers a letter from the legendary Pirate
-Hack Sparrow himself, detailing the existence of six ancient, invaluable artefacts
+Hack Narrow himself, detailing the existence of six ancient, invaluable artefacts
 which all guide one to the decades old horde of treasure belonging to Hack himself. You
 adventure out alone on your single-man sailing vessel to uncover these written secrets.
 
@@ -45,7 +45,7 @@ Artefact 2 - (An ancient Greek pot) This pot details the story of Perseus and me
 old Ancient Greek mythological story. On the bottom is a ragged engraving, much newer in
 age. (enter location of next artefact)
 
-Artefact 3 - (A theatherbound sailors Journal) This is a navigator's rutter. A logbook of
+Artefact 3 - (A leatherbound sailors Journal) This is a navigator's rutter. A logbook of
 directions, locations, maps and most importantly, directions to specific areas of the deadly
 ocean. (contains directions to artefact 4)
 
