@@ -268,12 +268,12 @@ def overWorld():
     print_map(player_coordinates)
 
     directions = ""
-    if(player_coordinates[1] > 0): directions += "north, "
-    if(player_coordinates[0] > 0): directions += "west, "
-    if(player_coordinates[1] < 9): directions += "south, "
-    if(player_coordinates[0] < 9): directions += "east, "
+    if(player_coordinates[1] > 0): directions += "-GO North\n"
+    if(player_coordinates[0] > 0): directions += "-GO West\n"
+    if(player_coordinates[1] < 9): directions += "-GO South\n"
+    if(player_coordinates[0] < 9): directions += "-GO East\n"
  
-    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Drink potion\n-Exit\n" % directions)
+    print("You can:\n%s-CHECK inventory\n-CHECK gear\n-CHECK weapons\n-CHECK health\n-DRINK potion\n-EXIT\n" % directions)
     player_input = input("What would you like to do?\n>")
     if player_input == "adminget":
         artefact_number += 1
@@ -315,9 +315,6 @@ def displayMessage(text):
 def rollCredits():
     print("\nGame created by:\n\nBlackbeard Entertainment Inc.\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
-def battlePhase(enemies):
-    for e in enemies:
-        print("%s does %d damage!" % (e.name, e.doDamage()))
 
 def event_checker(current_position, event_map):
     global artefact_number
@@ -382,11 +379,20 @@ def fight_event():
 
 def riddle_event(hintlist):
     global artefact_number
+    global ourHero
     riddle_check = riddle()
     if riddle_check == True:
         print("\nHint:")
         print(hintlist[artefact_number])
         input("Press Enter to continue.")
+    else:
+        if ourHero.inventory["Health Potions"] > 0:
+            ourHero.inventory["Health Potions"] -=1
+            print("\nSorry, you lost a potion\n")
+        elif ourHero.inventory["Health Potions"] == 0:
+            print("\nYou still have 0 potions\n")
+        user_input = input("Press anything to continue")
+
 
 # Maybe add some actual affects of the environmental events? like loss of item, etc.
 def environment_event():
