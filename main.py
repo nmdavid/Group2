@@ -248,7 +248,7 @@ def get_artefact(artefact_number): #Gives the player the next artefact and tells
                  "This is a navigator's rutter. A logbook of directions, locations, maps and most importantly, directions to specific areas of the deadly ocean.\nThe directions point to an island on the southern edge of mapped ocean.\n",
                  "On a small island you find a flintlock pistol. This pistol is common amongst pirates and lawmen alike, containing a single shot. \nSeeing the unique leather wrapped handle reminds you of the owner, a friend from a life almost forgotten, living in Tortuga.",
                  "When you travel to find the old friend whose pistol you found, you discover he has retired to become a simple shop keep, who claims to know Hack Narrow, or at least he did... a long time ago. \nHe gives you a silver ring for your travels. On the inside are inscribed co-ordinates to a harbour town west of where you found the pot earlier.",
-                 'The final artefact is held in a small museum in a quiet harbour town. \nYou go inside, and instantly one modest exhibit catches your eye. It is the figurehead piece of the famed ship, Silver Sword. \nIt is a solid silver model of a swordfish, with huge polished rubies for eyes. The item itself is immensely valuable, held behind thick glass and guarded by two armed men. \nIt seems somewhat out of place. You read the plaque in front of the exhibit. \n"The silver figurehead of the famed ship belonged to wealthy Spanish businessman Carlos Buendia... of course before it was stolen from him by the enigmatic band of pirates known as the black mist, and handed as a prize to their captain and leader Garton "No-Tongue" Crawford. It remained in his possession until death until it was passed into the possession of his equally infamous but outcast son, Hack Narrow. \nIt was in his period of possession where the ship was disassembled and the parts used to create some kind of storage room at a secret location, save this figurehead, donated to this museum."\nShouting comes from outside the building, growing louder and louder until silenced with the crack of gunfire. \nThe guards rush out to investigate. You remove the pistol artefact from your jacket pocket, and use the single shot to shatter the glass surrounding the figurehead. \nApparently unnoticed due to the outside disturbance, you carefully remove the left ruby eye of the figurehead and search for an exit through the back of the museum. \nAs you walk away, you hear a group of men discussing something as they shuffle past the limp bodies of the guards into the museum. \n\nYou decide to travel away from the port.']
+                 'The final artefact is held in a small museum in a quiet harbour town. \nYou go inside, and instantly one modest exhibit catches your eye. It is the figurehead piece of the famed ship, Silver Sword. \nIt is a solid silver model of a swordfish, with huge polished rubies for eyes. The item itself is immensely valuable, held behind thick glass and guarded by two armed men. \nIt seems somewhat out of place. You read the plaque in front of the exhibit. \n"The silver figurehead of the famed ship belonged to wealthy Spanish businessman Carlos Buendia... of course before it was stolen from him by the enigmatic band of pirates known as the black mist, and handed as a prize to their captain and leader Garton "No-Tongue" Crawford. It remained in his possession until death when it was passed into the possession of his equally infamous but outcast son, Hack Narrow. \nIt was in his period of possession where the ship was disassembled and the parts used to create some kind of storage room at a secret location, save this figurehead, donated to this museum."\nShouting comes from outside the building, growing louder and louder until silenced with the crack of gunfire. \nThe guards rush out to investigate. You remove the pistol artefact from your jacket pocket, and use the single shot to shatter the glass surrounding the figurehead. \nApparently unnoticed due to the outside disturbance, you carefully remove the left ruby eye of the figurehead and search for an exit through the back of the museum. \nAs you walk away, you hear a group of men discussing something as they shuffle past the limp bodies of the guards into the museum. \n\nYou decide to travel away from the port.']
     print("\n\nYou found an artefact!\n")
     print(artefacts[artefact_number])
     artefact_number += 1
@@ -319,14 +319,14 @@ def overWorld(): #Has the overworld drawn, prompts the player for an action, the
     if(player_coordinates[1] < 9): directions += "-GO South\n"
     if(player_coordinates[0] < 9): directions += "-GO East\n"
  
-    print("You can:\n%s-CHECK inventory\n-CHECK gear\n-CHECK weapons\n-CHECK health\n-DRINK potion\n-EXIT\n" % directions)
-    player_input = input("What would you like to do?\n>")
+    print("You can:\n%s-CHECK inventory\n-CHECK gear\n-CHECK weapons\n-CHECK health\n-DRINK potion\n-EXIT\n" % directions)  #Printing the option menu for each decision
+    player_input = input("What would you like to do?\n>")       #Checking player input and normalising it using our parsing file to obtain simple commands from the player
     if player_input == "adminget":
         artefact_number += 1
     player_input = normalise_input(player_input)
     if player_input == []:
         pass
-    elif player_input[0] == "check" and len(player_input) > 1:
+    elif player_input[0] == "check" and len(player_input) > 1:  
         if player_input[1] == "inventory":
             displayMessage(ourHero.printInventory())
         elif player_input[1] == "gear":
@@ -341,7 +341,7 @@ def overWorld(): #Has the overworld drawn, prompts the player for an action, the
     elif player_input[0] == "exit":
         print("\nThank you for playing!")
         run = False
-    elif player_input[0] == "drink" and player_input[1] == "potion" and ourHero.inventory["Health Potions"] > 0:
+    elif player_input[0] == "drink" and player_input[1] == "potion" and ourHero.inventory["Health Potions"] > 0:    #The drink potion command both heals the player and reduces potions held by 1
         ourHero.inventory["Health Potions"] -= 1
         ourHero.health += 50
         if ourHero.health >= 100:
@@ -383,23 +383,30 @@ def event_checker(current_position, event_map): #Checks the position of the play
     elif artefact_number == 6 and winchance == 1:
         print('''You are sailing through calm seas and blue skies, the wind is present but not
 strong. It is peaceful. You decide to look at the ruby eye, and see that it catches
-the sunlight in a very unique manner. as you angle it differently, you see that it's
+the sunlight in a very unique manner. As you angle it differently, you see that
 when pointed towards the ocean, the light casts red onto the waves. The next second a wave
 hits and it's gone. You try find the same spot again, and find that it is a trail of red
 being lit up by the ruby's reflection. You change the sails and follow the path, the
 ruby lighting the way. The path finishes leading you into the mouth of a cave set just off
-a crag of rocks. Your boat fits inside just, and not too far in, you find a short wooden
+a crag of rocks. Your boat just fits inside and not too far in, you find a short wooden
 mooring dock. You step onto the rocky shore, following the tunnel into the cavern deeper.
 After a short walk on wet rock, the walls and ceilings of the tunnel start to widen, and
-the light seeping through small gaps in the rocks overhead reveal a small wooden door
-just ahead. On the door is a small hole. A slot... a lock. It fits the shape of the ruby
+the light seeping through small gaps in the rocks overhead reveals a small wooden door
+just ahead. On the door is a small hole. A slot... A lock. It fits the shape of the ruby
 perfectly as you push it into place and the door swings open. Revealed is a vast, high
 ceilinged wooden structure, small windows of light keeping the contents barely visible.
-What was visible, however, was a huge array of varied treasures, crowding the room entirely.
-The room was filled to the wooden bowed ceilings by the golden, silver, crystal treasured
-all piled together. A voice suddenly materialised from behind you, "So you found me, then".
+What is visible, however, is a huge array of varied treasures, crowding the room entirely.
+The room is filled to the wooden bowed ceilings by the golden, silver, crystal treasures
+all piled together. A voice suddenly materialises from behind you, "So you found me."
 ''')
         print("\nYou win!")
+        print('''\n
+__     _____ ____ _____ ___  ______   __
+ \ \   / /_ _/ ___|_   _/ _ \|  _ \ \ / /
+  \ \ / / | | |     | || | | | |_) \ V / 
+   \ V /  | | |___  | || |_| |  _ < | |  
+    \_/  |___\____| |_| \___/|_| \_\|_|
+        '''
         exit()
         
 
@@ -442,14 +449,14 @@ def riddle_event(hintlist): #Called when the current tile is a riddle, rewards o
 
 
 def environment_event(): #Gives the player an event in the world. Called when the player is on an event tile
-    global ourHero
-    global done1
+    global ourHero          #Makes ourHero global so aspects of it can be used within this function
+    global done1            #The done variables ensure that each environment event can only occur once
     global done2
     global done3
     global done4
     global done5
     global done6
-    check = random.randint(1, 6)
+    check = random.randint(1, 6)    #Random roll to check which event occurs on the event tile
     if check == 1 and done1 == False:
         a = """
         A fin breaks the surface of the water infront of you,
@@ -464,7 +471,7 @@ def environment_event(): #Gives the player an event in the world. Called when th
         """
         print(a)
         ourHero.health -= 5
-        print("\n\nDue to the strain of the experience, you lose 5 health")
+        print("\n\nDue to the strain of the experience, you lose 5 health")         #Some of these events have consequences that effect your game, like losing health or an item
         done1 = True
     elif check == 2 and done2 == False:
         a = """
@@ -493,7 +500,7 @@ def environment_event(): #Gives the player an event in the world. Called when th
         and leave the island.
         """
         print(a)
-        print("\n\nThe Rusted Sword is added to your inventory")
+        print("\n\nThe Rusted Sword is added to your inventory")    #On this event you acquire a sword, so we make use of the constructor to create a new item and add it to the player's inventory
         newWeapon = Weapon("Rusted Sword", 8)
         ourHero.weapons.append(newWeapon)
         print("\nYou also gain 10 health")
