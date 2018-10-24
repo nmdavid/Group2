@@ -266,7 +266,7 @@ def startMenu(): #Controls the menu
     while(run == True):
         print("########################################")
         print("|                                      |")
-        print("|    The Pirates of the Approximate    |")
+        print("|    The Pirates of The Approximate    |")
         print("|    Atlantic and The Curse of The     |")
         print("|          Ancient Artefacts           |")
         print("|                                      |")
