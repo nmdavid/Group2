@@ -36,9 +36,9 @@ def encounter(difficulty):
     enemy_health = enemy.health
     print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
     while True:
-        print("\nYou are fighting a "+enemy.name)
+        print("\nYou are fighting "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
-        print("The "+enemy.name+" has "+str(enemy.health)+" HP.")
+        print("The enemy has "+str(enemy.health)+" HP.")
         choice = input("You can:\nFight\nHeal\nWhat do you want to do?\n>")
         if choice.lower() == "heal" and ourHero.inventory["Health Potions"] > 0:
             ourHero.inventory["Health Potions"] -= 1
@@ -53,17 +53,17 @@ def encounter(difficulty):
                 print("You missed!")
             elif crit != 0 and crit != 20:
                 enemy.health -= damage
-                print("\nYou hit the "+enemy.name+" for "+str(damage)+" damage.")
+                print("\nYou hit "+enemy.name+" for "+str(damage)+" damage.")
             elif crit == 20:
                 enemy.health -= (damage*2)
-                print("\nYou hit the "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
+                print("\nYou hit "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
         else:
             print("\nYou can't do that now.")
         if ourHero.health <= 0:
             print("\nYou died! The treasure will stay hidden forever...")
             sys.exit()
         if enemy.health <= 0:
-            print("\n\nYou defeated the "+enemy.name+"!")
+            print("\n\nYou defeated "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
             if reward > 0:
                 print("\nYou found "+str(reward)+" Health Potions!\n")
@@ -313,11 +313,8 @@ def displayMessage(text):
     input("Press Enter to continue.")
 
 def rollCredits():
-    print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
+    print("\nGame created by:\n\nBlackbeard Entertainment Inc.\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
-def battlePhase(enemies):
-    for e in enemies:
-        print("%s does %d damage!" % (e.name, e.doDamage()))
 
 def event_checker(current_position, event_map):
     global artefact_number
@@ -361,13 +358,14 @@ all piled together. A voice suddenly materialised from behind you, "So you found
 
 def fight_event():
     global artefact_number
-    check = random.randint(1, 5)
+    if artefact_number < 2:
+        check = random.randint(2, 5)
+    else:
+        check = random.randint (1, 3)
     if check == 1:
         encounter("hard")
         if artefact_number == 2:
-            get_chance = random.randint(1,2)
-            if get_chance == 1:
-                artefact_number = get_artefact(artefact_number)
+            artefact_number = get_artefact(artefact_number)
     elif check == 2 or check == 3:
         encounter("medium")
     else:
@@ -381,10 +379,20 @@ def fight_event():
 
 def riddle_event(hintlist):
     global artefact_number
+    global ourHero
     riddle_check = riddle()
     if riddle_check == True:
         print("\nHint:")
         print(hintlist[artefact_number])
+        input("Press Enter to continue.")
+    else:
+        if ourHero.inventory["Health Potions"] > 0:
+            ourHero.inventory["Health Potions"] -=1
+            print("\nSorry, you lost a potion\n")
+        elif ourHero.inventory["Health Potions"] == 0:
+            print("\nYou still have 0 potions\n")
+        user_input = input("Press anything to continue")
+
 
 # Maybe add some actual affects of the environmental events? like loss of item, etc.
 def environment_event():
