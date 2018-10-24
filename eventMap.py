@@ -1,20 +1,23 @@
 import random
 
 event_map = [
-    [0, 1, 0, 0, 2, 0, 0, 0, 0, 4],
+    [0, 1, 0, 0, 2, 0, 0, 0, 7, 4],
     [0, 0, 3, 0, 0, 0, 3, 0, 3, 1],
     [2, 0, 0, 1, 0, 0, 0, 0, 1, 1],
     [0, 0, 3, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 2],
+    [6, 0, 0, 0, 1, 0, 0, 0, 0, 2],
     [0, 0, 0, 0, 0, 0, 0, 2, 0, 3],
     [0, 2, 2, 1, 0, 0, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 0, 3, 1, 0, 0],
     [0, 0, 0, 0, 2, 0, 0, 0, 3, 0],
-    [1, 0, 0, 0, 0, 2, 0, 2, 0, 1],
+    [1, 0, 5, 0, 0, 2, 0, 2, 0, 1],
 ]
 hintlist = ["\nMaybe gathering some pirate's loot would give you somewhere to start...\n",
             "\nCould that 'NE' be a direction...?\n",
-            "\nThe Jolly Roger? That's the symbol of a pirate...\n"]
+            "\nThe Jolly Roger? That's the symbol of a pirate...\n",
+            "\nThe island has to be somewhere on the southern edge of mapped ocean...\n",
+            "\nTortuga... If your sense of direction serves you right, it's south of the island you washed up on.\n",
+            ]
 # Print out grid below in grid pattern, row by row
 #for row in event_map:
 #    for column in row:
