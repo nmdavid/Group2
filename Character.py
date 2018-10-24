@@ -19,7 +19,7 @@ class MainCharacter:
     def printGear(self):
         returnValue = "You currently have equipped: \n"
         for g in self.armor:
-            returnValue += "-%s, multiplies incoming damage by %d\n" %(g.name, g.armor)
+            returnValue += "-%s, reduces incoming damage by %d\n" %(g.name, g.armor)
         return returnValue
 
     def printWeapon(self):
@@ -35,9 +35,9 @@ class MainCharacter:
         return damage
 
     def takeDamage(self, amount):
-        amount = int(amount)
         for g in self.armor:
-            amount = amount / g.armor
+            if amount > 0 and (amount-g.armor) >= 0:
+                amount = amount - g.armor
         return int(amount)
 
     def printHealth(self):
