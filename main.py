@@ -376,10 +376,19 @@ def fight_event():
 
 def riddle_event(hintlist):
     global artefact_number
+    global ourHero
     riddle_check = riddle()
     if riddle_check == True:
         print("\nHint:")
         print(hintlist[artefact_number])
+    else:
+        if ourHero.inventory["Health Potions"] > 0:
+            ourHero.inventory["Health Potions"] -=1
+            print("\nSorry, you lost a potion\n")
+        elif ourHero.inventory["Health Potions"] == 0:
+            print("\nYou still have 0 potions\n")
+
+
 
 # Maybe add some actual affects of the environmental events? like loss of item, etc.
 def environment_event():
