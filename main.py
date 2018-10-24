@@ -50,13 +50,13 @@ def encounter(difficulty):
         print("You have "+str(ourHero.health)+" HP.")
         print("The "+enemy.name+" has "+str(enemy.health)+" HP.")
         choice = input("You can:\nFight\nHeal\nWhat do you want to do?\n>")
-        if choice == "heal" and ourHero.inventory["Health Potions"] > 0:
+        if choice.lower() == "heal" and ourHero.inventory["Health Potions"] > 0:
             ourHero.inventory["Health Potions"] -= 1
             ourHero.health += 50
             if ourHero.health >= 100:
                 ourHero.health = 100
             print("\nYou drank a healing potion.")
-        elif choice == "fight":
+        elif choice.lower() == "fight":
             crit = random.randint(1,20)
             damage = ourHero.doDamage()
             if crit == 0:
