@@ -114,6 +114,7 @@ def move_player(direction, user_coordinates):
     else:
         print("Cannot sail that way.\n")
         return user_coordinates
+        pressany = input("Press anything to continue")
 
 def riddle():
     riddles = {"With one simple action, how do you make a pirate angry?": [1, "Take the p away", "Kill his parrot", "Throw water at him", "Steal his treasure"],
@@ -304,6 +305,7 @@ def overWorld():
         input("Press Enter to continue.")
     else:
         print("\nYou cannot do that.\n")
+        anypress = input("Press anything to continue")
 
 def enterZone():
     global player_coordinates
@@ -383,6 +385,7 @@ def riddle_event(hintlist):
     if riddle_check == True:
         print("\nHint:")
         print(hintlist[artefact_number])
+        user_input = input ("Press anything to continue")
     else:
         if ourHero.inventory["Health Potions"] > 0:
             ourHero.inventory["Health Potions"] -=1
@@ -453,7 +456,7 @@ def environment_event():
         dangerous place for anyone to sail alone.
         """
         print(a)
-    
+    user_input = input("Press anything to continue")
 
 
 main()
