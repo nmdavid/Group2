@@ -17,7 +17,8 @@ hintlist = ["\nMaybe gathering some pirate's loot would give you somewhere to st
             "\nThe Jolly Roger? That's the symbol of a pirate...\n",
             "\nThe island has to be somewhere on the southern edge of mapped ocean...\n",
             "\nTortuga... If your sense of direction serves you right, it's south of the island you washed up on.\n",
-            ]
+            "\nThe harbour town your friend spoke of was west of where you found the pot...\n",
+            "\nMaybe the ghost of Hack Narrow can be found somewhere on these seas...\n"]
 # Print out grid below in grid pattern, row by row
 #for row in event_map:
 #    for column in row:
