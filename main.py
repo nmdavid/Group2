@@ -87,6 +87,7 @@ def battleEnded(current_ship):
                 print("\nYou got a new weapon, a "+newWeapon.name+"!")
         else:
             ourHero.weapons[1] = newWeapon
+    input("Press Enter to continue.")
    
 
 def print_map(user_coordinates):
@@ -123,9 +124,10 @@ def riddle():
                "Pirates sail the world going from island to island, and continent to continent. Australia is the world’s largest island – but before it was discovered what was the largest island in the world?": [4, "Madagascar", "Jamaica", "Great Britain", "Australia"],
                "A pirate shoots her parrot, then holds the parrot under water for 5 minutes. Later she feeds her parrot a cracker and they stare out across the sea together. How?": [4, "It was all a dream", "She has two parrots", "She fed a dead parrot and then held up its body", "The pirate took a picture of the parrot and developed it"],
                "Roger’s pirate father has three sons: Bluebeard, Greybeard and ...?": [3, "Kirill", "Blackbeard", "Roger", "Redbeard"],
-               "What four letter starts with wind?": [1,"Ship", "Wind", "Seas", "Coin"],
+               "What four letter word starts with wind?": [1,"Ship", "Wind", "Seas", "Coin"],
                "A pirate just left her favourite rum shack in Barbados, but she left something behind. She does however always have this something too. What did she leave?": [4, "Money", "Alcoholism", "Rum", "Fingerprints"]
                }
+    print('\nA ghostly mist surrounds your ship, and an ominous voice speaks the words:\n"Answer my riddle, and I shall guide you".\n')
     riddle_select = random.randint(0,9)
     riddle = list(riddles.keys())[riddle_select]
     answers = list(riddles.values())[riddle_select]
@@ -205,6 +207,7 @@ def get_artefact(artefact_number):
     print(artefacts[artefact_number])
     artefact_number += 1
     ourHero.inventory["Artefacts"] += 1
+    input("Press Enter to continue.")
     return artefact_number
     
 ## main game loop
@@ -255,7 +258,6 @@ def mainGameLoop():
         overWorld()
         if player_coordinates != oldCoordinates:
             enterZone()
-        input("Press Enter to continue.")
 
 def overWorld():
     global player_coordinates
@@ -291,6 +293,7 @@ def overWorld():
         player_coordinates = move_player(player_input[1], player_coordinates)
         event_checker(player_coordinates, event_map)
     elif player_input[0] == "exit":
+        print("\nThank you for playing!")
         run = False
     elif player_input[0] == "drink" and player_input[1] == "potion" and ourHero.inventory["Health Potions"] > 0:
         ourHero.inventory["Health Potions"] -= 1
@@ -298,6 +301,7 @@ def overWorld():
         if ourHero.health >= 100:
             ourHero.health = 100
         print("\nYou drank a potion.\n")
+        input("Press Enter to continue.")
     else:
         print("\nYou cannot do that.\n")
 
@@ -306,6 +310,7 @@ def enterZone():
 
 def displayMessage(text):
     print(text)
+    input("Press Enter to continue.")
 
 def rollCredits():
     print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
