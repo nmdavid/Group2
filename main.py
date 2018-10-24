@@ -6,11 +6,12 @@ from story import *
 from random import *
 from eventMap import *
 
-ourHero = MainCharacter("Dave", 100, 20, 
-                        {"Health Potions" : 1, "Artifacts": 0}, 
+ourHero = MainCharacter("Dave", 100, 5, 
+                        {"Health Potions" : 1, "Artefacts": 0}, 
                         [Armor("Sailors pants", 1),],
                         [Weapon("Simple Dagger", 2), Weapon("Nothing", 1)])
 player_coordinates = [0,0]
+artefact_number = 0
 run = True
 #Game logic
 def player_change_location():
@@ -42,6 +43,8 @@ def encounter(difficulty):
         loot_table = "ShipThreeEnemies"
         reward = 2
     enemy = enemies[random.randint(0,1)]
+    enemy_health = enemy.health
+    print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
     while True:
         print("\nYou are fighting a "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
@@ -70,8 +73,11 @@ def encounter(difficulty):
             print("\nYou died! The treasure will stay hidden forever...")
             sys.exit()
         if enemy.health <= 0:
-            print("\nYou defeated the "+enemy.name+"!")
+            print("\n\nYou defeated the "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
+            if reward > 0:
+                print("\nYou found "+str(reward)+" Health Potions!\n")
+            enemy.health = enemy_health
             battleEnded(Loot_table[loot_table])
             break
         enemy_damage = ourHero.takeDamage(enemy.doDamage())
@@ -79,15 +85,16 @@ def encounter(difficulty):
         print("\nYou were hit for "+str(enemy_damage)+" damage.")          
 
 def battleEnded(current_ship):
-    newWeapon = current_ship["weaponloot"]
-    if newWeapon:
+    loot_roll = random.randint(0,2)
+    if loot_roll == 2:
+        newWeapon = current_ship["weaponloot"]
         if len(ourHero.weapons) > 1:
             if ourHero.weapons[0].damage > ourHero.weapons[1].damage and newWeapon.damage > ourHero.weapons[1].damage:
                 ourHero.weapons[1] = newWeapon
-                print("You got a new weapon, a "+newWeapon.name+"!")
+                print("\nYou got a new weapon, a "+newWeapon.name+"!")
             elif newWeapon.damage > ourHero.weapons[0].damage:
                 ourHero.weapons[0] = newWeapon
-                print("You got a new weapon, a "+newWeapon.name+"!")
+                print("\nYou got a new weapon, a "+newWeapon.name+"!")
         else:
             ourHero.weapons[1] = newWeapon
    
@@ -115,6 +122,7 @@ def move_player(direction, user_coordinates):
         return user_coordinates
     else:
         print("Cannot sail that way.\n")
+        return user_coordinates
 
 def riddle():
     riddles = {"With one simple action, how do you make a pirate angry?": [1, "Take the p away", "Kill his parrot", "Throw water at him", "Steal his treasure"],
@@ -193,9 +201,15 @@ You find a small sailing vessel abandoned on the beach, and set out to find the 
     """)
     input("Press Enter to continue.")
                                                                                        
-
-                                                        
-
+def get_artefact(artefact_number):
+    artefacts = ["It's an old gold coin. Very old, and solid gold... \nIts value has no number that is for sure. The inscribed picture is a very stylised 'NE'.",
+                 "This pot details the story of Perseus and medusa, an old Ancient Greek mythological story.\nOn the bottom is a ragged engraving, much newer in age.\nIt shows a skull, similar to the Jolly Roger.",
+                 ]
+    print("\n\nYou found an artefact!\n")
+    print(artefacts[artefact_number])
+    artefact_number += 1
+    ourHero.inventory["Artefacts"] += 1
+    return artefact_number
     
 ## main game loop
 def main():
@@ -278,40 +292,65 @@ def overWorld():
         event_checker(player_coordinates, event_map)
     elif player_input[0] == "exit":
         run = False
+    elif player_input[0] == "drink" and player_input[1] == "potion" and ourHero.inventory["Health Potions"] > 0:
+        ourHero.inventory["Health Potions"] -= 1
+        ourHero.health += 50
+        if ourHero.health >= 100:
+            ourHero.health = 100
+        print("\nYou drank a potion.\n")
+    else:
+        print("\nYou cannot do that.\n")
 
 def enterZone():
     global player_coordinates
 
 def displayMessage(text):
     print(text)
-    input("Enter anything to return to previous menu")
 
 def rollCredits():
-    print("Game created by:")
+    print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
 def battlePhase(enemies):
     for e in enemies:
         print("%s does %d damage!" % (e.name, e.doDamage()))
 
 def event_checker(current_position, event_map):
+    global artefact_number
     if event_map[current_position[1]][current_position[0]] == 1:
         fight_event()
     elif event_map[current_position[1]][current_position[0]] == 2:
-        riddle()
+        riddle_event(hintlist)
     elif event_map[current_position[1]][current_position[0]] == 3:
         environment_event()
+    elif event_map[current_position[1]][current_position[0]] == 4 and artefact_number == 1:
+        artefact_number = get_artefact(artefact_number)
 
 def fight_event():
-    check = random.randint(1, 3)
+    global artefact_number
+    check = random.randint(1, 5)
     if check == 1:
-        encounter("easy")
-    elif check == 2:
+        encounter("hard")
+        if artefact_number == 2:
+            get_chance = random.randint(1,2)
+            if get_chance == 1:
+                artefact_number = get_artefact(artefact_number)
+    elif check == 2 or check == 3:
         encounter("medium")
     else:
-        encounter("hard")
+        encounter("easy")
+            
+    if artefact_number == 0:
+        get_chance = random.randint(1,3)
+        if get_chance == 1:
+            artefact_number = get_artefact(artefact_number)
+    
 
-def riddle_event():
-    riddle()
+def riddle_event(hintlist):
+    global artefact_number
+    riddle_check = riddle()
+    if riddle_check == True:
+        print("\nHint:")
+        print(hintlist[artefact_number])
 
 # Maybe add some actual affects of the environmental events? like loss of item, etc.
 def environment_event():
