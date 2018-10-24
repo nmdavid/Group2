@@ -10,7 +10,7 @@ ShipOneDictionary = {
     "Enemies": ShipOneEnemies,
     "Gold": 100,
     "description": "A very cool ship",
-    "weaponloot" : Weapon("Biggie", 1000000)
+    "weaponloot" : Weapon("Pointy Stick", 2)
 }
 
 
@@ -21,7 +21,7 @@ ShipTwoDictionary = {
     "Enemies": ShipTwoEnemies,
     "Gold": 300,
     "description": "This ship cooler tho",
-    "weaponloot": Weapon("Flintlock pistol", 5)
+    "weaponloot": Weapon("Very Pointy Stick", 3)
 }
 
 ShipThreeEnemies = [SimpleEnemy("Angry Pirate", 35, 10), SimpleEnemy("Very Angry Pirate", 45, 12)]
@@ -30,7 +30,7 @@ ShipThreeDictionary = {
     "Enemies": ShipThreeEnemies,
     "Gold": 300,
     "description": "This ship cooler tho",
-    "weaponloot": Weapon("Pointy stick", 3)
+    "weaponloot": Weapon("Flintlock Pistol", 5)
 }
 #List of rooms
 Ships = [
