@@ -147,7 +147,10 @@ def riddle():
         print("\nYou have "+str(3-attempts)+" attempts left.\n")
         player_answer = input(">")
         player_answer = normalise_answer(player_answer)
-        if player_answer[0] == "a" and answer == 1:
+        if player_answer == []:
+            print("Incorrect.")
+            attempts += 1
+        elif player_answer[0] == "a" and answer == 1:
             print("Correct!")
             return True
         elif player_answer[0] == "b" and answer == 2:
@@ -204,7 +207,10 @@ You find a small sailing vessel abandoned on the beach, and set out to find the 
 def get_artefact(artefact_number):
     artefacts = ["It's an old gold coin. Very old, and solid gold... \nIts value has no number that is for sure. The inscribed picture is a very stylised 'NE'.",
                  "This pot details the story of Perseus and medusa, an old Ancient Greek mythological story.\nOn the bottom is a ragged engraving, much newer in age.\nIt shows a skull, similar to the Jolly Roger.",
-                 ]
+                 "This is a navigator's rutter. A logbook ofdirections, locations, maps and most importantly, directions to specific areas of the deadly ocean.\nThe directions point to an island on the southern edge of mapped ocean.\n",
+                 "On a small island you find a flintlock pistol. This pistol is common amongst pirates and lawmen alike, containing a single shot. \nSeeing the unique leather wrapped handle reminds you of the owner, a friend from a life almost forgotten, living in Tortuga.",
+                 "When you travel to find the old friend whose pistol you found,you discover he has retired to become a simple shop keep, who claims to know Hack Narrow, or at least he did... a long time ago. \nHe gives you a silver ring for your travels. On the inside are inscribed co-ordinates to a harbor town west of where the pot was.",
+                 'The final artefact is held in a small museum in a quiet harbour town. \nYou go inside, and instantly one modest exhibit catches your eye. It is the figurehead piece of the famed ship, Silver Sword. \nIt is a solid silver model of a swordfish, with huge polished rubies for eyes. The item itself is immensely valuable, held behind thick glass and guarded by two armed men. \nIt seems somewhat out of place. You read the plaque in front of the exhibit. \n"The silver figurehead of the famed ship belonged to wealthy Spanish businessman Carlos Buendia... of course before it was stolen from him by the enigmatic band of pirates known as the black mist, \nand handed as a prize to their captain and leader Garton "No-Tongue" Crawford. It remained in his possession until death until it was passed into the possession of his equally infamous but outcast son, Hack Narrow. \nIt was in his period of possession where the ship was disassembled, the parts used to create some kind of storage room at a secret location, save this figurehead, donated to this museum."\n Shouting comes from outside the building, growing louder and louder until silenced with the crack of gunfire. \nThe guards rush out to investigate. You remove your acquired pistol from your jacket pocket, and use the single shot to shatter the glass surrounding the figurehead. \nApparently unnoticed due to the outside disturbance, you carefully remove the left ruby eye of the figurehead and search for an exit through the back of the museum. \nAs you walk away, you hear a group of men discussing something as they shuffle past the limp bodies of the guards into the museum. \n\nYou decide to travel away from the port.']
     print("\n\nYou found an artefact!\n")
     print(artefacts[artefact_number])
     artefact_number += 1
@@ -265,6 +271,7 @@ def overWorld():
     global player_coordinates
     global run
     global ourHero
+    global artefact_number
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     print_map(player_coordinates)
 
@@ -276,9 +283,12 @@ def overWorld():
  
     print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Drink potion\n-Exit\n" % directions)
     player_input = input("What would you like to do?\n>")
+    if player_input == "adminget":
+        artefact_number += 1
     player_input = normalise_input(player_input)
-
-    if player_input[0] == "check" and len(player_input) > 1:
+    if player_input == []:
+        pass
+    elif player_input[0] == "check" and len(player_input) > 1:
         if player_input[1] == "inventory":
             displayMessage(ourHero.printInventory())
         elif player_input[1] == "gear":
@@ -287,7 +297,7 @@ def overWorld():
             displayMessage(ourHero.printWeapon())
         elif player_input[1] == "health":
             displayMessage(ourHero.printHealth())
-    elif player_input[0] == "go":
+    elif player_input[0] == "go" and len(player_input) > 1:
         player_coordinates = move_player(player_input[1], player_coordinates)
         event_checker(player_coordinates, event_map)
     elif player_input[0] == "exit":
@@ -316,6 +326,7 @@ def battlePhase(enemies):
 
 def event_checker(current_position, event_map):
     global artefact_number
+    winchance = random.randint(1,4)
     if event_map[current_position[1]][current_position[0]] == 1:
         fight_event()
     elif event_map[current_position[1]][current_position[0]] == 2:
@@ -324,6 +335,34 @@ def event_checker(current_position, event_map):
         environment_event()
     elif event_map[current_position[1]][current_position[0]] == 4 and artefact_number == 1:
         artefact_number = get_artefact(artefact_number)
+    elif event_map[current_position[1]][current_position[0]] == 5 and artefact_number == 3:
+        artefact_number = get_artefact(artefact_number)
+    elif event_map[current_position[1]][current_position[0]] == 6 and artefact_number == 4 :
+        artefact_number = get_artefact(artefact_number)
+    elif event_map[current_position[1]][current_position[0]] == 7 and artefact_number == 5 :
+        artefact_number = get_artefact(artefact_number)
+    elif artefact_number == 6 and winchance == 1:
+        print('''You are sailing through calm seas and blue skies, the wind is present but not
+strong. It is peaceful. You decide to look at the ruby eye, and see that it catches
+the sunlight in a very unique manner. as you angle it differently, you see that it's
+when pointed towards the ocean, the light casts red onto the waves. The next second a wave
+hits and it's gone. You try find the same spot again, and find that it is a trail of red
+being lit up by the ruby's reflection. You change the sails and follow the path, the
+ruby lighting the way. The path finishes leading you into the mouth of a cave set just off
+a crag of rocks. Your boat fits inside just, and not too far in, you find a short wooden
+mooring dock. You step onto the rocky shore, following the tunnel into the cavern deeper.
+After a short walk on wet rock, the walls and ceilings of the tunnel start to widen, and
+the light seeping through small gaps in the rocks overhead reveal a small wooden door
+just ahead. On the door is a small hole. A slot... a lock. It fits the shape of the ruby
+perfectly as you push it into place and the door swings open. Revealed is a vast, high
+ceilinged wooden structure, small windows of light keeping the contents barely visible.
+What was visible, however, was a huge array of varied treasures, crowding the room entirely.
+The room was filled to the wooden bowed ceilings by the golden, silver, crystal treasured
+all piled together. A voice suddenly materialised from behind you, "So you found me, then".
+''')
+        print("\nYou win!")
+        exit()
+        
 
 def fight_event():
     global artefact_number
