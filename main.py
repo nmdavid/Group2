@@ -36,9 +36,9 @@ def encounter(difficulty):
     enemy_health = enemy.health
     print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
     while True:
-        print("\nYou are fighting a "+enemy.name)
+        print("\nYou are fighting "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
-        print("The "+enemy.name+" has "+str(enemy.health)+" HP.")
+        print("The enemy has "+str(enemy.health)+" HP.")
         choice = input("You can:\nFight\nHeal\nWhat do you want to do?\n>")
         if choice.lower() == "heal" and ourHero.inventory["Health Potions"] > 0:
             ourHero.inventory["Health Potions"] -= 1
@@ -53,17 +53,17 @@ def encounter(difficulty):
                 print("You missed!")
             elif crit != 0 and crit != 20:
                 enemy.health -= damage
-                print("\nYou hit the "+enemy.name+" for "+str(damage)+" damage.")
+                print("\nYou hit "+enemy.name+" for "+str(damage)+" damage.")
             elif crit == 20:
                 enemy.health -= (damage*2)
-                print("\nYou hit the "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
+                print("\nYou hit "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
         else:
             print("\nYou can't do that now.")
         if ourHero.health <= 0:
             print("\nYou died! The treasure will stay hidden forever...")
             sys.exit()
         if enemy.health <= 0:
-            print("\n\nYou defeated the "+enemy.name+"!")
+            print("\n\nYou defeated "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
             if reward > 0:
                 print("\nYou found "+str(reward)+" Health Potions!\n")
@@ -200,8 +200,8 @@ def get_artefact(artefact_number):
     artefacts = ["It's an old gold coin. Very old, and solid gold... \nIts value has no number that is for sure. The inscribed picture is a very stylised 'NE'.",
                  "This pot details the story of Perseus and medusa, an old Ancient Greek mythological story.\nOn the bottom is a ragged engraving, much newer in age.\nIt shows a skull, similar to the Jolly Roger.",
                  "This is a navigator's rutter. A logbook ofdirections, locations, maps and most importantly, directions to specific areas of the deadly ocean.\nThe directions point to an island on the southern edge of mapped ocean.\n",
-                 "On a small island you find a flintlock pistol. This pistol is common amongst pirates and lawmen alike, containing a single shot. \nSeeing the unique leather wrapped handle reminds you of the owner, a friend from a life almost forgotten, living in Tortuga.",
-                 "When you travel to find the old friend whose pistol you found,you discover he has retired to become a simple shop keep, who claims to know Hack Narrow, or at least he did... a long time ago. \nHe gives you a silver ring for your travels. On the inside are inscribed co-ordinates to a harbor town west of where the pot was.",
+                 "On a small island you find a flintlock pistol. This pistol is common amongst pirates and lawmen alike, containing a single shot. \nSeeing the unique leather wrapped handle reminds you of the owner, a friend from a life almost forgotten, living in Tortuga.\nYou remember Tortuga is in the east.",
+                 "When you travel to find the old friend whose pistol you found, you discover he has retired to become a simple shop keep, who claims to know Hack Narrow, or at least he did... a long time ago. \nHe gives you a silver ring for your travels. On the inside are inscribed co-ordinates to a harbor town west of where the pot was.",
                  'The final artefact is held in a small museum in a quiet harbour town. \nYou go inside, and instantly one modest exhibit catches your eye. It is the figurehead piece of the famed ship, Silver Sword. \nIt is a solid silver model of a swordfish, with huge polished rubies for eyes. The item itself is immensely valuable, held behind thick glass and guarded by two armed men. \nIt seems somewhat out of place. You read the plaque in front of the exhibit. \n"The silver figurehead of the famed ship belonged to wealthy Spanish businessman Carlos Buendia... of course before it was stolen from him by the enigmatic band of pirates known as the black mist, \nand handed as a prize to their captain and leader Garton "No-Tongue" Crawford. It remained in his possession until death until it was passed into the possession of his equally infamous but outcast son, Hack Narrow. \nIt was in his period of possession where the ship was disassembled, the parts used to create some kind of storage room at a secret location, save this figurehead, donated to this museum."\n Shouting comes from outside the building, growing louder and louder until silenced with the crack of gunfire. \nThe guards rush out to investigate. You remove your acquired pistol from your jacket pocket, and use the single shot to shatter the glass surrounding the figurehead. \nApparently unnoticed due to the outside disturbance, you carefully remove the left ruby eye of the figurehead and search for an exit through the back of the museum. \nAs you walk away, you hear a group of men discussing something as they shuffle past the limp bodies of the guards into the museum. \n\nYou decide to travel away from the port.']
     print("\n\nYou found an artefact!\n")
     print(artefacts[artefact_number])
@@ -313,7 +313,7 @@ def displayMessage(text):
     input("Press Enter to continue.")
 
 def rollCredits():
-    print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
+    print("\nGame created by:\n\nBlackbeard Entertainment Inc.\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
 def battlePhase(enemies):
     for e in enemies:
@@ -361,13 +361,14 @@ all piled together. A voice suddenly materialised from behind you, "So you found
 
 def fight_event():
     global artefact_number
-    check = random.randint(1, 5)
+    if artefact_number < 2:
+        check = random.randint(2, 5)
+    else:
+        check = random.randint (1, 3)
     if check == 1:
         encounter("hard")
         if artefact_number == 2:
-            get_chance = random.randint(1,2)
-            if get_chance == 1:
-                artefact_number = get_artefact(artefact_number)
+            artefact_number = get_artefact(artefact_number)
     elif check == 2 or check == 3:
         encounter("medium")
     else:
@@ -385,6 +386,7 @@ def riddle_event(hintlist):
     if riddle_check == True:
         print("\nHint:")
         print(hintlist[artefact_number])
+        input("Press Enter to continue.")
 
 # Maybe add some actual affects of the environmental events? like loss of item, etc.
 def environment_event():
