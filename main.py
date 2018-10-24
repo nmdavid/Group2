@@ -313,11 +313,8 @@ def displayMessage(text):
     input("Press Enter to continue.")
 
 def rollCredits():
-    print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
+    print("\nGame created by:\n\nGROUP 2\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTomi Halifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
-def battlePhase(enemies):
-    for e in enemies:
-        print("%s does %d damage!" % (e.name, e.doDamage()))
 
 def event_checker(current_position, event_map):
     global artefact_number
