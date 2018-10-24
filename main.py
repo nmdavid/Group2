@@ -14,16 +14,6 @@ player_coordinates = [0,0]
 artefact_number = 0
 run = True
 #Game logic
-def player_change_location():
-    print("Available ships:")
-    for x in Ships:
-        print("-" + x["name"])
-    print("Where would you want to go?")
-    name = input()
-    for x in Ships:
-        if x["name"] == name:
-            current_ship = x
-            return current_ship
 
 
 def encounter(difficulty):
