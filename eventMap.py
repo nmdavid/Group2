@@ -1,7 +1,7 @@
 import random
 
 event_map = [
-    [0, 1, 0, 0, 2, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 2, 0, 0, 0, 0, 4],
     [0, 0, 3, 0, 0, 0, 3, 0, 3, 1],
     [2, 0, 0, 1, 0, 0, 0, 0, 1, 1],
     [0, 0, 3, 0, 0, 1, 2, 0, 0, 0],
@@ -12,6 +12,9 @@ event_map = [
     [0, 0, 0, 0, 2, 0, 0, 0, 3, 0],
     [1, 0, 0, 0, 0, 2, 0, 2, 0, 1],
 ]
+hintlist = ["\nMaybe gathering some pirate's loot would give you somewhere to start...\n",
+            "\nCould that 'NE' be a direction...?\n",
+            "\nThe Jolly Roger? That's the symbol of a pirate...\n"]
 # Print out grid below in grid pattern, row by row
 #for row in event_map:
 #    for column in row:
@@ -26,7 +29,8 @@ then calls that function
 '''
 
 # The following functions are commented out as they hvae been copied into main.py
-# They do not function correctly if they are here, but it's useful to have them here in my opinion
+# They do not function correctly if they are here, but it's useful to keep them
+# here in my opinion as they are all related to event_map
 
 #def fight_event():
 #    check = random.randint(1, 3)
