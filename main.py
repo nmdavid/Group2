@@ -1,4 +1,4 @@
-from map import *
+from map import * 
 from Character import *
 from sys import exit
 from gameparser import *
@@ -6,20 +6,30 @@ from story import *
 from random import *
 from eventMap import *
 
+#This creates the player character using the builder from Character.py
 ourHero = MainCharacter("Dave", 100, 5, 
                         {"Health Potions" : 1, "Artefacts": 0}, 
                         [Armor("Sailors pants", 1),],
                         [Weapon("Simple Dagger", 2), Weapon("Nothing", 1)])
-player_coordinates = [0,0]
-artefact_number = 0
-run = True
+player_coordinates = [0,0] #The current position of the player on the overworld
+artefact_number = 0 #The number of artefacts the player has collected (this tracks the progression of the player)
+run = True #Used to end the game
+
+done1 = False
+done2 = False
+done3 = False
+done4 = False
+done5 = False
+done6 = False
+
+
 #Game logic
 
 
-def encounter(difficulty):
+def encounter(difficulty): #The battle function
     global ourHero
     enemies = []
-    reward = 0
+    reward = 0 #These if statements set the difficulty of the encounter depending on the string argument given to the function
     if difficulty == "easy":
         enemies = ShipOneEnemies
         loot_table = "ShipOneEnemies"
@@ -32,10 +42,10 @@ def encounter(difficulty):
         enemies = ShipThreeEnemies
         loot_table = "ShipThreeEnemies"
         reward = 2
-    enemy = enemies[random.randint(0,1)]
+    enemy = enemies[random.randint(0,2)] #Selects a random enemy from the ship
     enemy_health = enemy.health
     print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
-    while True:
+    while True:                                     #The fight loop
         print("\nYou are fighting "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
         print("The enemy has "+str(enemy.health)+" HP.")
@@ -62,7 +72,7 @@ def encounter(difficulty):
         if ourHero.health <= 0:
             print("\nYou died! The treasure will stay hidden forever...")
             sys.exit()
-        if enemy.health <= 0:
+        if enemy.health <= 0:                           #Gives the player rewards depending on the ship
             print("\n\nYou defeated "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
             if reward > 0:
@@ -74,7 +84,7 @@ def encounter(difficulty):
         ourHero.health -= enemy_damage
         print("\nYou were hit for "+str(enemy_damage)+" damage.")          
 
-def battleEnded(current_ship):
+def battleEnded(current_ship):      #If the player successfully loots (random chance), the new weapon replaces one of their weaker ones
     loot_roll = random.randint(0,2)
     if loot_roll == 2:
         newWeapon = current_ship["weaponloot"]
@@ -90,15 +100,15 @@ def battleEnded(current_ship):
     input("Press Enter to continue.")
    
 
-def print_map(user_coordinates):
+def print_map(user_coordinates): #This function prints the map of the overworld using a 2D array
     grid = [["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "],["~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ ","~ "]]
-    grid[user_coordinates[1]][user_coordinates[0]] = "⛵"
+    grid[user_coordinates[1]][user_coordinates[0]] = "⛵" #Puts the player in the overworld
     print("\n\n\n\n\n")
     for column in grid:
         line = '    '.join(column)
         print(line+"\n")
 
-def move_player(direction, user_coordinates):
+def move_player(direction, user_coordinates): #Changes the player's coordinates depending on their input
     if direction == "north" and (user_coordinates[1]-1) >= 0:
         user_coordinates[1] -= 1
         return user_coordinates
@@ -116,7 +126,7 @@ def move_player(direction, user_coordinates):
         return user_coordinates
         pressany = input("Press anything to continue")
 
-def riddle():
+def riddle(): #Displays a riddle to the player and returns True or False depending on whether they got it right
     riddles = {"With one simple action, how do you make a pirate angry?": [1, "Take the p away", "Kill his parrot", "Throw water at him", "Steal his treasure"],
                "A pirate ransacks a village, but their treasure chest is locked. The pirate demands the code for the combination lock, the mayor says that the code is random every day and if anyone in the village is hurt then he will never get the code. The pirate guesses the code – how?": [3,"He smashes the lock", "The code was 0000", "The code was random","The code was 1234"],
                "A pirate should always have a tip-top compass, but this pirates has been weather worn by the salty sea air, and now only shows the norm. What does it show?": [3, "N", "Nothing", "N, E, S, W", "N, NE, E, SE, S, SW, W, NW"],
@@ -161,43 +171,78 @@ def riddle():
     print("You got the riddle wrong!")
     return False
 
-def printIntro():
-    print("""\n\n\n\n\nWaking up on the shore of a lonely island, you barely retain the memories of your escape
+def printIntro(): #Prints the introduction at the beginning of the game
+    print("""\n\n\n\n\n\n\n\n\n\n\n
+    
+Waking up on the shore of a lonely island, you barely retain the memories of your escape
+
 from the cruel pirate prison. As you look to your new surroundings, you see the
+
 lifeless bodies of two of your companions. Mourning their loss, you decide to give them a
-true burial. As you drag one body through the sand a bottle containing some
-battered parchment falls from his pocket. You uncork the bottle and read the letter inside.
-    _____                                                          ______
-   /     \________________________________________________________/      \
-  / \                                                                     \
-  |  |                                                                    |
-   \ /___________________________________________________________________/
-    \                                                                  |
-    |    For ye who follow,                                            |
-    |                                                                  |
-    |    I be dead now, which means I must pass my legacy to           |
-    |    another who shall retain the objects better than I.           |
-    |    Far across the crystal waves scattered are artefacts          |
-    |    of no one price. These six objects shall lead ye to          /
-    |    the final pass where the treasure I horded over decades      |
-    /    shall lay waiting for the arrival of one worthy. Go.         |
-    |    Claim what belongs to the oceans now, but be wary. This      |
-    |    is no task for a yellow-bellied bilge rat.                   |
-    \                                                                 |
-     |   Farewell and good fortune,                                   /
-     |   Hack Narrow                                                 /
-    /                                                               |
-   /  ____ _____________________________________________________________                                                       
-   | /    \                                                             \
-   \ \__  |                                                              |
-    \____/______________________________________________________________/
 
+true burial. As you drag one body through the sand a bottle containing a
 
+battered piece of parchment falls from his pocket. You uncork the bottle and read the letter inside.""")
+    input("Press Enter to continue.")
+    print("""
+
+    _____                                                          _______
+
+   /     \________________________________________________________/         \
+
+  / \                                                                          \
+
+  |  |                                                                          |
+
+   \ /_________________________________________________________________________/
+
+    \                                                                         |
+
+    |    For all ye who follow,                                               |
+
+    |                                                                         |
+
+    |    If my words be in yerr grubby paws then I have perished. I           |
+
+    |    must pass my legacy to another who shall retain the objects better   |
+
+    |    than I. Far across the crystalline waves scattered are artefacts,  |
+
+    |    worthless to the unworthy. These six objects shall lead ye to        /
+
+    |    the final pass where the treasure I hoarded over decades              |
+
+    /    shall lay in wait for the arrival of one deserving their heft.        |
+
+    |     Go. Claim what belongs to the oceans now, but beware. Keep your      |
+
+    |    wits about ye for this ain't a task for no yellow-bellied bilge rat.  |
+
+    \                                                                          |
+
+     |   Farewell and fair winds,                                             /
+
+     |   Hack Narrow                                                        /
+
+    /                                                                      |
+
+   /  ____ __________________________________________________________________                                                       
+
+   | /    \                                                                    \
+
+   \ \__  |                                                                     |
+
+    \____/_____________________________________________________________________/
+
+    """)
+    input("Press Enter to continue.")
+    print("""
+    
 You find a small sailing vessel abandoned on the beach, and set out to find the artefacts that the scroll mentions.
     """)
     input("Press Enter to continue.")
                                                                                        
-def get_artefact(artefact_number):
+def get_artefact(artefact_number): #Gives the player the next artefact and tells them what it is
     artefacts = ["It's an old gold coin. Very old, and solid gold... \nIts value has no number that is for sure. The inscribed picture is a very stylised 'NE'.",
                  "This pot details the story of Perseus and medusa, an old Ancient Greek mythological story.\nOn the bottom is a ragged engraving, much newer in age.\nIt shows a skull, similar to the Jolly Roger.",
                  "This is a navigator's rutter. A logbook of directions, locations, maps and most importantly, directions to specific areas of the deadly ocean.\nThe directions point to an island on the southern edge of mapped ocean.\n",
@@ -216,7 +261,7 @@ def main():
     startMenu()
        
 
-def startMenu():
+def startMenu(): #Controls the menu
     global run
     while(run == True):
         print("########################################")
@@ -247,11 +292,11 @@ def startMenu():
             run = False
 
 
-def startGame():
+def startGame(): #Displays the intro then starts the main game loop
     printIntro()
     mainGameLoop()
 
-def mainGameLoop():
+def mainGameLoop(): #Keeps the game going
     global player_coordinates
     global run
     while run:
@@ -260,7 +305,7 @@ def mainGameLoop():
         if player_coordinates != oldCoordinates:
             enterZone()
 
-def overWorld():
+def overWorld(): #Has the overworld drawn, prompts the player for an action, then executes that action
     global player_coordinates
     global run
     global ourHero
@@ -310,15 +355,15 @@ def overWorld():
 def enterZone():
     global player_coordinates
 
-def displayMessage(text):
+def displayMessage(text): #Used to display text about the player
     print(text)
     input("Press Enter to continue.")
 
-def rollCredits():
+def rollCredits(): #Used in the main menu to display credits
     print("\nGame created by:\n\nBlackbeard Entertainment Inc.\n\nSara Abidi\nJake Casey\nNaomi Davidson\nJosh Fielding\nTommy Khalifa\nFinn Milliner\nRahul Singh\nJake Ziegler\n")
 
 
-def event_checker(current_position, event_map):
+def event_checker(current_position, event_map): #Checks the position of the player and compares it to event_map, triggers an event if the current tile has one associated with it
     global artefact_number
     winchance = random.randint(1,4)
     if event_map[current_position[1]][current_position[0]] == 1:
@@ -358,7 +403,7 @@ all piled together. A voice suddenly materialised from behind you, "So you found
         exit()
         
 
-def fight_event():
+def fight_event(): #Called when the current tile is a battle, and determines what difficulty the enemies are. Dependent on how far the player is through the game
     global artefact_number
     if artefact_number < 2:
         check = random.randint(2, 5)
@@ -374,12 +419,12 @@ def fight_event():
         encounter("easy")
             
     if artefact_number == 0:
-        get_chance = random.randint(1,3)
+        get_chance = random.randint(1,2)
         if get_chance == 1:
             artefact_number = get_artefact(artefact_number)
     
 
-def riddle_event(hintlist):
+def riddle_event(hintlist): #Called when the current tile is a riddle, rewards or punishes the player depending on how they did
     global artefact_number
     global ourHero
     riddle_check = riddle()
@@ -396,21 +441,32 @@ def riddle_event(hintlist):
         user_input = input("Press anything to continue")
 
 
-# Maybe add some actual affects of the environmental events? like loss of item, etc.
-def environment_event():
-    check = random.randint(1, 5)
-    if check == 1:
+def environment_event(): #Gives the player an event in the world. Called when the player is on an event tile
+    global ourHero
+    global done1
+    global done2
+    global done3
+    global done4
+    global done5
+    global done6
+    check = random.randint(1, 6)
+    if check == 1 and done1 == False:
         a = """
         A fin breaks the surface of the water infront of you,
         rising higher and higher out of the water the creature's immense
         size becomes quickly apparent as the jaws of a huge shark emerges
         opening wide, revealing row after row of sharp, jagged teeth.
         Just as it is about to reach your ship, it is dragged underneath.
-        blood rises to the surface and a booming noise comes from below,
-        deafening you completely.
+        blood rises to sit on the surface of the water and a booming noise
+        comes from below, deafening you completely. Whatever that is, you
+        don't want to run into it. You use a large amount of energy to
+        escape the area as rapidly as possible.
         """
         print(a)
-    elif check == 2:
+        ourHero.health -= 5
+        print("\n\nDue to the strain of the experience, you lose 5 health")
+        done1 = True
+    elif check == 2 and done2 == False:
         a = """
         Sharp scraping from underneath the deck wakes you from a daydream.
         you see the approaching water is somewhat darker then usual in spots.
@@ -421,7 +477,10 @@ def environment_event():
         nothing more than a small amount of damage on the underside of your ship.
         """
         print(a)
-    elif check == 3:
+        ourHero.inventory["Health Potions"] -= 1
+        print("\n\nOne of your health potions gets lost overboard")
+        done2 = True
+    elif check == 3 and done3 == False:
         a = """
         Not too far in the distance you spot a tiny island, home to a single palm
         tree, just creeping on the horizon. You change course to investigate.
@@ -430,10 +489,20 @@ def environment_event():
         its white bones sit aside a dulled sword and a small book. You pick up the book,
         a few large gold coins falling from between the pages. "The Wolf Queen, v1". You
         open to the first page, but drop it as you feel a shocking sensation run through
-        your body. Your hands feel more nimble all of a sudden.
+        your body. Your hands feel more nimble all of a sudden. You pick up the sword
+        and leave the island.
         """
         print(a)
-    elif check == 4:
+        print("\n\nThe Rusted Sword is added to your inventory")
+        newWeapon = Weapon("Rusted Sword", 8)
+        ourHero.weapons.append(newWeapon)
+        print("\nYou also gain 10 health")
+        if ourHero.health > 90:
+            ourHero.health = 100
+        else:
+            ourHero.health += 10
+        done3 = True
+    elif check == 4 and done4 == False:
         a = """
         You notice the water turns a shade of green as you pass over what must be a kelp
         field. looking deeper into the murky water, you spot something glimmering in the
@@ -445,7 +514,8 @@ def environment_event():
         beating drum. You store it, and continue.
         """
         print(a)
-    elif check == 5:
+        done4 = True
+    elif check == 5 and done5 == False:
         a = """
         The crack of cannon-fire alerts you from behind. As you turn to observe you see
         two grand galleons exchanging shots with one another several leagues away from
@@ -456,7 +526,23 @@ def environment_event():
         dangerous place for anyone to sail alone.
         """
         print(a)
-    user_input = input("Press anything to continue")
+        done5 = True
+    elif check == 6 and done6 == False:
+        a = """
+        As you pass a series of rocks speared through the waves, you hear a strange but 
+        enticing series of notes hit your ears. Almost instantly and without thought,
+        you turn your head towards the rocks, eager to hear more of the same noise.
+        Even though your skin crawls it urges you towards the rocks, your hands changing the rudder's direction without a conscious thought.
+        The singing becomes stronger, dulling your senses as you move forward in a euphoric but dazed state towards the wet grey rocks.
+        A large wave rocks you off your feet and you hit your head, the trance broken.
+        You recall the old sailor's stories you were told as a child and quickly get the ship
+        back on course, stuffing some spare cloth into your ears. A last glance back and you
+        spot a female figure on the rock. Dead stare and motionless she smiles, revealing
+        a mouthful of needle teeth.
+        """
+        print(a)
+        done6 = True
+    user_input = input("Press Enter to continue.")
 
 
-main()
+main() #Starts the program
