@@ -392,6 +392,7 @@ def riddle_event(hintlist):
             print("\nSorry, you lost a potion\n")
         elif ourHero.inventory["Health Potions"] == 0:
             print("\nYou still have 0 potions\n")
+        user_input = input("Press anything to continue")
 
 
 
