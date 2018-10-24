@@ -268,12 +268,12 @@ def overWorld():
     print_map(player_coordinates)
 
     directions = ""
-    if(player_coordinates[1] > 0): directions += "north, "
-    if(player_coordinates[0] > 0): directions += "west, "
-    if(player_coordinates[1] < 9): directions += "south, "
-    if(player_coordinates[0] < 9): directions += "east, "
+    if(player_coordinates[1] > 0): directions += "-GO North\n"
+    if(player_coordinates[0] > 0): directions += "-GO West\n"
+    if(player_coordinates[1] < 9): directions += "-GO South\n"
+    if(player_coordinates[0] < 9): directions += "-GO East\n"
  
-    print("You can:\n-Go %s\n-Check inventory\n-Check gear\n-Check weapons\n-Check health\n-Drink potion\n-Exit\n" % directions)
+    print("You can:\n%s-CHECK inventory\n-CHECK gear\n-CHECK weapons\n-CHECK health\n-DRINK potion\n-EXIT\n" % directions)
     player_input = input("What would you like to do?\n>")
     if player_input == "adminget":
         artefact_number += 1
