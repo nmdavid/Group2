@@ -46,6 +46,9 @@ def encounter(difficulty): #The battle function
     enemy_health = enemy.health
     print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
     while True:                                     #The fight loop
+        if ourHero.health <= 0:
+            print("\nYou died! The treasure will stay hidden forever...")
+            exit()
         print("\nYou are fighting "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
         print("The enemy has "+str(enemy.health)+" HP.")

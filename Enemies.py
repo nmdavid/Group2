@@ -10,4 +10,4 @@ class SimpleEnemy: #This class is used to create the different enemies
         self.health -= amount
 
     def doDamage(self): #Function used for enemies to deal damage
-        return randrange(0, self.damage)
+        return randrange(3, self.damage)
