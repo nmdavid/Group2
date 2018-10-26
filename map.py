@@ -9,7 +9,7 @@ from Character import *
 #Ships also have weapons as loot scaled to the difficulty of the enemies
 
 #These are the "easy" enemies and loot
-ShipOneEnemies = [SimpleEnemy("a Deadly Rabbit", 25, 10), SimpleEnemy("a Ferocious Rat", 28, 11), SimpleEnemy("a Big Seagull", 35, 15)]]
+ShipOneEnemies = [SimpleEnemy("a Deadly Rabbit", 25, 10), SimpleEnemy("a Ferocious Rat", 28, 11), SimpleEnemy("a Big Seagull", 35, 15)]
 ShipOneDictionary = {
     "Enemies": ShipOneEnemies,
     "weaponloot" : Weapon("Pointy Stick", 2)
@@ -17,7 +17,6 @@ ShipOneDictionary = {
 
 #These are the "medium" enemies and loot
 ShipTwoEnemies = [SimpleEnemy("a Spooky Scary Skeleton", 15, 20), SimpleEnemy("a Cool Cat", 25, 25), SimpleEnemy("an Octopus", 30, 30)]
->>>>>>> b6c499f5885f8d7d228fa6284cc2f8eced2ef611
 ShipTwoDictionary = {
     "Enemies": ShipTwoEnemies,
     "weaponloot": Weapon("Very Pointy Stick", 3)
