@@ -7,7 +7,7 @@ from random import *
 from eventMap import *
 
 #This creates the player character using the builder from Character.py
-ourHero = MainCharacter("Dave", 100, 5, 
+ourHero = MainCharacter("Dave", 100, 4, 
                         {"Health Potions" : 1, "Artefacts": 0}, 
                         [Armor("Sailors pants", 1),],
                         [Weapon("Simple Dagger", 2), Weapon("Nothing", 1)])
@@ -71,7 +71,7 @@ def encounter(difficulty): #The battle function
             print("\nYou can't do that now.")
         if ourHero.health <= 0:
             print("\nYou died! The treasure will stay hidden forever...")
-            sys.exit()
+            exit()
         if enemy.health <= 0:                           #Gives the player rewards depending on the ship
             print("\n\nYou defeated "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
