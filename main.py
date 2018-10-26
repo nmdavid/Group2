@@ -46,6 +46,9 @@ def encounter(difficulty): #The battle function
     enemy_health = enemy.health
     print("\n\nYOU ENCOUNTER AN ENEMY!\n\n")
     while True:                                     #The fight loop
+        if ourHero.health <= 0:
+            print("\nYou died! The treasure will stay hidden forever...")
+            exit()
         print("\nYou are fighting "+enemy.name)
         print("You have "+str(ourHero.health)+" HP.")
         print("The enemy has "+str(enemy.health)+" HP.")
@@ -69,9 +72,6 @@ def encounter(difficulty): #The battle function
                 print("\nYou hit "+enemy.name+" for "+str(damage*2)+" damage. Critical hit!")
         else:
             print("\nYou can't do that now.")
-        if ourHero.health <= 0:
-            print("\nYou died! The treasure will stay hidden forever...")
-            exit()
         if enemy.health <= 0:                           #Gives the player rewards depending on the ship
             print("\n\nYou defeated "+enemy.name+"!")
             ourHero.inventory["Health Potions"] += reward
